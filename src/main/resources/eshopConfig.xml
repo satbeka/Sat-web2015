@@ -1,0 +1,49 @@
+<eshop>
+
+        <action method="POST" path="administrator/logout">
+            <name>LogoutAction</name>
+            <view>adminlogout</view>
+        </action>
+        <action method="GET" path="administrator/addProduct">
+            <name>AddProductAction</name>
+            <view>addproduct</view>
+        </action>
+        <action method="POST" path="administrator/editProduct">
+            <name>EditProductAction</name>
+            <view>editproduct</view>
+        </action>
+        <action method="GET" path="administrator/markClientBlackList">
+            <name>MarkClientBlackListAction</name>
+            <view>markclietnbl</view>
+        </action>
+        <action method="GET" path="administrator/unmarkClientBlackList">
+            <name>UnmarkClientBlackListAction</name>
+            <view>unmarkclientbl</view>
+        </action>
+
+       <action method="POST" path="login">
+           <name>LoginAction</name>
+           <view>login</view>
+       </action>
+       <action method="POST" path="client/logout">
+           <name>LogoutAction</name>
+           <view>clientlogout</view>
+       </action>
+       <action method="GET" path="client/createOrder">
+           <name>CreateOrderAction</name>
+           <view>createorder</view>
+       </action>
+       <action method="POST" path="client/confimOrder">
+           <name>ConfimOrderAction</name>
+           <view>confirmorder</view>
+       </action>
+       <action method="GET" path="client/payOrder">
+           <name>PayOrderAction</name>
+           <view>payorder</view>
+       </action>
+       <action method="GET" path="client/deleteOrder">
+           <name>DeleteOrderAction</name>
+           <view>deleteorder</view>
+       </action>
+    
+</eshop>
