@@ -92,6 +92,49 @@ public class H2UserDAO implements UserDAO{
         return null;
     }
 
+    public User findUserByLoginByPassword(String login,String password) {
+        //User user=new User();
+        Connection cn=this.connection;
+
+        PreparedStatement st = null;
+        try {
+            st = cn.prepareStatement("select * from user where login =? and password =? and nvl(deleted,0)!=1;");
+            st.setString(1,login);
+            st.setString(2,password);
+        } catch (SQLException e) {
+            //TODO log e.printStackTrace();
+        }
+
+        ResultSet rs = null;
+        Long role=null;
+        try {
+            rs=st.executeQuery();
+            rs.next();
+            role=rs.getLong(3);
+            if (role==1) {
+                Administrator administrator=null;
+                administrator.setId(rs.getLong(1));
+                administrator.setName(rs.getString(2));
+                administrator.setBirthDay(rs.getDate(8));
+                administrator.setInn(rs.getString(7));
+                administrator.setPassword(rs.getString(6));
+                return administrator;}
+
+            Client client=null;
+            client.setId(rs.getLong(1));
+            client.setName(rs.getString(2));
+            client.setBirthDay(rs.getDate(8));
+            client.setInn(rs.getString(7));
+            client.setPassword(rs.getString(6));
+            return client;
+
+        } catch (SQLException e) {
+            //TODO log e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @Override
     public User findUserById(long id) {
         return null;
