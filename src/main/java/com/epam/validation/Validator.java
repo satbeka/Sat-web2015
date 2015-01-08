@@ -20,7 +20,7 @@ public class Validator {
         return true;
     };
     public boolean isLoginCorrect(String login){
-        String regex="[a-zA-Z_0-9]*";
+        String regex="[a-zA-Z_0-9]+";
         Pattern p=Pattern.compile(regex);
         Matcher matcher = p.matcher(login);
         if (matcher.matches()){
