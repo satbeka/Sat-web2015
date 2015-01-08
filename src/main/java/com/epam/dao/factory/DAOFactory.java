@@ -4,6 +4,7 @@ import com.epam.dao.address.AddressDAO;
 import com.epam.dao.administrator.AdministratorDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.dao.product.ProductDAO;
+import com.epam.dao.user.UserDAO;
 
 public abstract class DAOFactory {
 
@@ -52,6 +53,8 @@ public abstract class DAOFactory {
     public abstract OrderDAO getOrderDAO();
 
     public abstract ProductDAO getProductDAO();
+
+    public abstract UserDAO getUserDAO();
 
     public abstract AddressDAO getAddressDAO();
 }

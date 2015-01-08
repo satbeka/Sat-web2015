@@ -1,5 +1,7 @@
 package com.epam.dao.factory;
 
+import com.epam.dao.user.H2UserDAO;
+import com.epam.dao.user.UserDAO;
 import com.epam.db.ConnectionPool;
 import com.epam.dao.address.AddressDAO;
 import com.epam.dao.administrator.AdministratorDAO;
@@ -44,13 +46,18 @@ public class H2DAOFactory extends DAOFactory {
     }
 
     @Override
-    public OrderDAO getOrderDAO(){
+    public OrderDAO getOrderDAO() {
         return new H2OrderDAO();
     }
 
     @Override
     public ProductDAO getProductDAO() {
         return new H2ProductDAO();
+    }
+
+    @Override
+    public UserDAO getUserDAO() {
+        return new H2UserDAO();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.epam.action;
 
 import com.epam.config.Action;
+import com.epam.dao.user.H2UserDAO;
+import com.epam.dao.user.UserDAO;
 import com.epam.db.ConnectionPool;
 import com.epam.dao.administrator.AdministratorDAO;
 import com.epam.dao.administrator.H2AdministratorDAO;
@@ -26,31 +28,33 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
         View view=null;
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        AdministratorDAO administratorDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getAdministratorDAO();
-        H2AdministratorDAO h2AdministratorDAO=(H2AdministratorDAO)administratorDAO;
+        //AdministratorDAO administratorDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getAdministratorDAO();
+        //H2AdministratorDAO h2AdministratorDAO=(H2AdministratorDAO)administratorDAO;
         //ConnectionPool connectionPool=(ConnectionPool)req.getServletContext().getAttribute("poolInstance");
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        h2AdministratorDAO.setConnection(connectionPool);
-        Administrator administrator = administratorDAO.findAdministratorByLogin(login);
-        h2AdministratorDAO.closeConnection(connectionPool);
-        if (administrator == null) {
+        //h2AdministratorDAO.setConnection(connectionPool);
+        UserDAO userDAO=DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getUserDAO();
+        H2UserDAO h2UserDAO=(H2UserDAO)userDAO;
+        h2UserDAO.setConnection(connectionPool);
+        User user=((H2UserDAO) userDAO).findUserByLoginByPassword(login,password);
+        if (user==null){
+            //req.setAttribute();
+            view.setName("error_login");
+            return view;};
 
+        if (user.getClass().toString()=="Administrator"){
+            req.getSession().setAttribute("ROLE", "ADMINISTRATOR");
+            view.setName("adminmenu");
             return view;
         }
-        ;
-        if (administrator != null) {
-            if (administrator.getPassword() != password) {
-                return view;
-            }
-            ;
 
-            //ClientDAO clientDAO=DAOFactory.getDAOFactory(DAOFactory.H2).getClientDAO();
-
-
+        if (user.getClass().toString()=="Clien"){
+            req.getSession().setAttribute("ROLE", "CLIENT");
+            view.setName("clientmenu");
             return view;
         }
-        return view;
-    }
+        }
+
 
     public LoginAction() {};
     public LoginAction(Action action){

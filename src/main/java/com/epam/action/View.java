@@ -6,9 +6,13 @@ public class View {
         return name;
     }
 
-    private final String name;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public View(String jsp) {
-        this.name = jsp;
+    private String name;
+
+    public View(String nameJsp) {
+        this.name = nameJsp;
     }
 }

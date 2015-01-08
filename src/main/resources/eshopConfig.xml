@@ -1,5 +1,10 @@
 <eshop>
 
+    <action method="GET" path="administrator/whatdo">
+        <name>WhatDoAction</name>
+        <view>adminmenu</view>
+    </action>
+
         <action method="POST" path="administrator/logout">
             <name>LogoutAction</name>
             <view>adminlogout</view>
@@ -45,5 +50,10 @@
            <name>DeleteOrderAction</name>
            <view>deleteorder</view>
        </action>
-    
+       <action method="GET" path="client/whatdo">
+           <name>WhatDoAction</name>
+           <view>clientmenu</view>
+       </action>
+
+
 </eshop>
