@@ -25,7 +25,7 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
     private Action action;
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
-        View view = null;
+        View view = new View("");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         //AdministratorDAO administratorDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getAdministratorDAO();
@@ -39,20 +39,20 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
         User user = ((H2UserDAO) userDAO).findUserByLoginByPassword(login, password);
         if (user == null) {
             //req.setAttribute();
-            view.setName("errors/error_login");
+            view.setName("errors/login");
             return view;
         }
         ;
 
         if (user.getClass().toString() == "Administrator") {
             req.getSession().setAttribute("ROLE", "ADMINISTRATOR");
-            view.setName("adminmenu");
+            view.setName("redirect");
             return view;
         }
 
         if (user.getClass().toString() == "Client") {
             req.getSession().setAttribute("ROLE", "CLIENT");
-            view.setName("clientmenu");
+            view.setName("redirect");
             return view;
         }
         return view;

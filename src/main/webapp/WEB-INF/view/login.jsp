@@ -26,6 +26,13 @@
             <input type="hidden" name="TYPE" value="AUTH" />
 
 
+            <form action="do/login" method="post">
+
+                <input type="text" name="login" value="" /><br/>
+                <input type="text" name="password" value="" /><br/>
+                <input type="submit" value="Нажать" /><br/>
+            </form>
+
             <div class="b-form_line">
                 <label class="title" for="enter_email">Логин</label>
                 <span class="input"><input type="text" id="enter_email" name="USER_LOGIN" maxlength="50" value="" /></span>

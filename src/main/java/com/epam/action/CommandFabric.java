@@ -32,29 +32,43 @@ public class CommandFabric {
 
     ;
 
-    public ActionCommand getCommand(String method, String path) {
+    public ActionCommand defineCommand(String method, String path) {
         ActionCommand actionCommand = null;
         ArrayList<Action> listAction = new ArrayList<Action>();
         listAction = this.getCommandList();
         Action result = null;
         for (Iterator<Action> i = listAction.iterator(); i.hasNext(); ) {
             result = i.next();
-            if ((result.getMethod() == method) & (result.getPath() == path)) {
-            } else {
-                result = null;
+            System.out.println(" result.getMethod()= "+result.getMethod());
+            System.out.println(" result.getPath()= "+result.getPath());
+
+            if ((result.getMethod().equals(method)) & (result.getPath().equals(path))) {
+                System.out.println(" have result ");
+                break;
             }
+            result = null;
+
         }
-        if (result.getName().toString() == "LoginAction") {
-            actionCommand = new LoginAction(result);
+        if (result.getName().equals("GetLoginAction")) {
+            actionCommand = new GetLoginAction();
+            return actionCommand;
 
         }
         ;
-        if (result.getName().toString() == "MarkClientBlackListAction") {
+        if (result.getName().equals("LoginAction")) {
+            actionCommand = new LoginAction(result);
+            return actionCommand;
+
+        }
+        ;
+        if (result.getName().equals("MarkClientBlackListAction")) {
             actionCommand = new MarkClientBlackListAction();
+            return actionCommand;
         }
         ;
         if (result.getName().toString() == "LogoutAction") {
             actionCommand = new LogoutAction();
+            return actionCommand;
         }
         ;
         if (result.getName().toString() == "AddProductAction") {

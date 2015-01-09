@@ -30,6 +30,10 @@
            <name>LoginAction</name>
            <view>login</view>
        </action>
+    <action method="GET" path="/login">
+        <name>GetLoginAction</name>
+        <view>login</view>
+    </action>
        <action method="POST" path="client/logout">
            <name>LogoutAction</name>
            <view>clientlogout</view>

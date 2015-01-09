@@ -3,10 +3,7 @@ package com.epam.controller;
 import com.epam.action.ActionCommand;
 import com.epam.action.CommandFabric;
 import com.epam.action.View;
-import com.epam.config.Eshop;
-import com.epam.config.parser.Parser;
 import com.epam.db.ConnectionPool;
-import com.epam.listener.ContextListener;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -70,21 +67,21 @@ public class FrontServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doGet(req, resp);
-        int i;
+        //int i;
         String method = req.getMethod();
         String path = req.getPathInfo();
-        System.out.println("doGet 5577778887775999111");
+        //System.out.println("doGet 5577778887775999111");
+        Object object=req.getServletContext().getAttribute("CommandFabric");
+        System.out.println("doGet CommandFabric="+object);
 
         CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
-        System.out.println("doGet CommandFabric="+commandFabric);
-        ActionCommand actionCommand = commandFabric.getCommand(method, path);
+        //System.out.println("doGet CommandFabric="+commandFabric);
+        ActionCommand actionCommand = commandFabric.defineCommand(method, path);
         View view = actionCommand.execute(req, resp);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher(view.getName().toString() + ".jsp");
-        if (dispatcher != null)
-            //dispatcher.include(req, resp);
-            //resp.getWriter().println("    =tttttttt ");
-            dispatcher.forward(req, resp);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/"+view.getName().toString() + ".jsp");
+        if (dispatcher != null){
+            dispatcher.forward(req, resp);}
 
 
     }
@@ -93,10 +90,28 @@ public class FrontServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPost(req, resp);
 
-        String location = "/index.jsp";
-        System.out.println("context path " + location);
-        resp.sendRedirect(location);
+        String location = req.getContextPath();
+        //System.out.println("context path " + location);
 
+        String method = req.getMethod();
+        String path = req.getPathInfo();
+        System.out.println("doPost "+req.getContextPath());
+        Object object=req.getServletContext().getAttribute("CommandFabric");
+        System.out.println("doPost CommandFabric="+object);
+
+        CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
+        //System.out.println("doGet CommandFabric="+commandFabric);
+        ActionCommand actionCommand = commandFabric.defineCommand(method, path);
+        View view = actionCommand.execute(req, resp);
+        if (view.getName().equals("redirect")){
+            resp.sendRedirect(location);
+        }
+        else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/"+view.getName().toString() + ".jsp");
+            if (dispatcher != null) {
+                dispatcher.forward(req, resp);
+            }
+        }
         /*
         RequestDispatcher dispatcher =req.getRequestDispatcher("/myweb/index.jsp");
         if (dispatcher!=null){

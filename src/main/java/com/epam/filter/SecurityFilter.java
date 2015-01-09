@@ -34,7 +34,7 @@ public class SecurityFilter implements Filter{
         //System.out.println("seecur Attr role="+httpRequest.getAttributeNames().hashCode());
         if (role==User.Role.ADMINISTRATOR.toString()){
             /*
-            RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/view/errors/error_runtime.jsp");
+            RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/view/errors/runtime.jsp");
             dispatcher.forward(request, response);return;
             */
         }
