@@ -5,6 +5,7 @@ import com.epam.dao.address.AddressDAO;
 import com.epam.dao.administrator.AdministratorDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.dao.product.ProductDAO;
+import com.epam.dao.user.UserDAO;
 
 
 public class OracleDAOFactory extends DAOFactory {
@@ -20,6 +21,11 @@ public class OracleDAOFactory extends DAOFactory {
 
     @Override
     public ProductDAO getProductDAO() throws ConnectionException {
+        return null;
+    }
+
+    @Override
+    public UserDAO getUserDAO() {
         return null;
     }
 

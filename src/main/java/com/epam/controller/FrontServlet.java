@@ -6,6 +6,7 @@ import com.epam.action.View;
 import com.epam.config.Eshop;
 import com.epam.config.parser.Parser;
 import com.epam.db.ConnectionPool;
+import com.epam.listener.ContextListener;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -23,12 +24,7 @@ public class FrontServlet extends HttpServlet {
     //@Override
     public void init(ServletContext servletContext) throws ServletException {
 
-        Parser parser = new Parser();
-        Eshop eshop = parser.parser();
-        servletContext.setAttribute("ESHOP", eshop);
-        CommandFabric commandFabric = new CommandFabric();
-        commandFabric.LoadEshopConfig(eshop);
-        servletContext.setAttribute("CommandFabric", commandFabric);
+        System.out.println("init");
         //servletContext.setAttribute("poolInstance",connectionPool);
         //this.login = servletContext;
     }
@@ -48,8 +44,8 @@ public class FrontServlet extends HttpServlet {
 
         //User user=new Administrator();
         if (session.getAttribute("ROLE") != "ADMINISTRATOR") {
-            System.out.println("front role=!!!!");
-            session.setAttribute("ROLE", "ADMINISTRATOR");
+            System.out.println("front role= "+session.getAttribute("ROLE"));
+            //session.setAttribute("ROLE", "ADMINISTRATOR");
         }
         ;
         String role = (String) session.getAttribute("ROLE");
@@ -77,8 +73,10 @@ public class FrontServlet extends HttpServlet {
         int i;
         String method = req.getMethod();
         String path = req.getPathInfo();
-        CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
+        System.out.println("doGet 5577778887775999111");
 
+        CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
+        System.out.println("doGet CommandFabric="+commandFabric);
         ActionCommand actionCommand = commandFabric.getCommand(method, path);
         View view = actionCommand.execute(req, resp);
 

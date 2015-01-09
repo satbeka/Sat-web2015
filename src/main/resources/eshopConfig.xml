@@ -26,7 +26,7 @@
             <view>unmarkclientbl</view>
         </action>
 
-       <action method="POST" path="login">
+       <action method="POST" path="/login">
            <name>LoginAction</name>
            <view>login</view>
        </action>

@@ -30,7 +30,7 @@ public class SecurityFilter implements Filter{
         //String role=
         String role=(String)session.getAttribute("ROLE");
         //String role=(String)request.getAttribute("ROLE");
-        System.out.println("seecur role="+role);
+        System.out.println("seecur role888="+role);
         //System.out.println("seecur Attr role="+httpRequest.getAttributeNames().hashCode());
         if (role==User.Role.ADMINISTRATOR.toString()){
             /*

@@ -1,6 +1,9 @@
 package com.epam.listener;
 
 
+import com.epam.action.CommandFabric;
+import com.epam.config.Eshop;
+import com.epam.config.parser.Parser;
 import com.epam.db.ConnectionPool;
 
 import javax.servlet.ServletContext;
@@ -18,6 +21,16 @@ public class ContextListener implements ServletContextListener{
         System.out.println("ContextListener connectionPool = [" + connectionPool + "]");
         //context.setAttribute("poolInstance",instance);
         //context.setAttribute("ROLE","null");
+
+        System.out.println("ServletContext init888=");
+        Parser parser = new Parser();
+        Eshop eshop = parser.parser();
+        context.setAttribute("ESHOP", eshop);
+
+        CommandFabric commandFabric = new CommandFabric();
+        commandFabric.LoadEshopConfig(eshop);
+        context.setAttribute("CommandFabric", commandFabric);
+        System.out.println("context commandFabric="+commandFabric);
 
 
     }
