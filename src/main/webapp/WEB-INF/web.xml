@@ -21,6 +21,7 @@
         <url-pattern>/do/*</url-pattern>
     </servlet-mapping>
 
+
     <servlet>
         <servlet-name>ErrorHandler</servlet-name>
         <servlet-class>com.epam.controller.ErrorHandler</servlet-class>
@@ -61,6 +62,7 @@
     <filter-mapping>
         <filter-name>securityfilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
 </web-app>

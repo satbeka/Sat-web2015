@@ -1,32 +1,32 @@
 <eshop>
 
-    <action method="GET" path="administrator/whatdo">
+    <action method="GET" path="/do/administrator/whatdo">
         <name>WhatDoAction</name>
         <view>adminmenu</view>
     </action>
 
-        <action method="POST" path="administrator/logout">
+        <action method="POST" path="/do/administrator/logout">
             <name>LogoutAction</name>
             <view>adminlogout</view>
         </action>
-        <action method="GET" path="administrator/addProduct">
+        <action method="GET" path="/do/administrator/addProduct">
             <name>AddProductAction</name>
             <view>addproduct</view>
         </action>
-        <action method="POST" path="administrator/editProduct">
+        <action method="POST" path="/do/administrator/editProduct">
             <name>EditProductAction</name>
             <view>editproduct</view>
         </action>
-        <action method="GET" path="administrator/markClientBlackList">
+        <action method="GET" path="/do/administrator/markClientBlackList">
             <name>MarkClientBlackListAction</name>
             <view>markclietnbl</view>
         </action>
-        <action method="GET" path="administrator/unmarkClientBlackList">
+        <action method="GET" path="/do/administrator/unmarkClientBlackList">
             <name>UnmarkClientBlackListAction</name>
             <view>unmarkclientbl</view>
         </action>
 
-       <action method="POST" path="/login">
+       <action method="POST" path="/do/login">
            <name>LoginAction</name>
            <view>login</view>
        </action>
@@ -34,27 +34,27 @@
         <name>GetLoginAction</name>
         <view>login</view>
     </action>
-       <action method="POST" path="client/logout">
+       <action method="POST" path="/do/client/logout">
            <name>LogoutAction</name>
            <view>clientlogout</view>
        </action>
-       <action method="GET" path="client/createOrder">
+       <action method="GET" path="/do/client/createOrder">
            <name>CreateOrderAction</name>
            <view>createorder</view>
        </action>
-       <action method="POST" path="client/confimOrder">
+       <action method="POST" path="/do/client/confimOrder">
            <name>ConfimOrderAction</name>
            <view>confirmorder</view>
        </action>
-       <action method="GET" path="client/payOrder">
+       <action method="GET" path="/do/client/payOrder">
            <name>PayOrderAction</name>
            <view>payorder</view>
        </action>
-       <action method="GET" path="client/deleteOrder">
+       <action method="GET" path="/do/client/deleteOrder">
            <name>DeleteOrderAction</name>
            <view>deleteorder</view>
        </action>
-       <action method="GET" path="client/whatdo">
+       <action method="GET" path="/do/client/whatdo">
            <name>WhatDoAction</name>
            <view>clientmenu</view>
        </action>

@@ -31,7 +31,7 @@ public class FrontServlet extends HttpServlet {
 
         HttpSession session = req.getSession(true);
         System.out.println("front sess=" + session);
-        System.out.println("com.epam.service ");
+        System.out.println("service req.getContextPath()="+req.getContextPath());
         String meth = req.getMethod();
         String actionName = req.getMethod() + req.getPathInfo();
         System.out.println("actionName=" + actionName);
@@ -70,6 +70,7 @@ public class FrontServlet extends HttpServlet {
         //int i;
         String method = req.getMethod();
         String path = req.getPathInfo();
+
         //System.out.println("doGet 5577778887775999111");
         Object object=req.getServletContext().getAttribute("CommandFabric");
         System.out.println("doGet CommandFabric="+object);
@@ -95,7 +96,7 @@ public class FrontServlet extends HttpServlet {
 
         String method = req.getMethod();
         String path = req.getPathInfo();
-        System.out.println("doPost "+req.getContextPath());
+        System.out.println("doPost path="+path);
         Object object=req.getServletContext().getAttribute("CommandFabric");
         System.out.println("doPost CommandFabric="+object);
 
@@ -103,6 +104,7 @@ public class FrontServlet extends HttpServlet {
         //System.out.println("doGet CommandFabric="+commandFabric);
         ActionCommand actionCommand = commandFabric.defineCommand(method, path);
         View view = actionCommand.execute(req, resp);
+        System.out.println("post view="+view.getName());
         if (view.getName().equals("redirect")){
             resp.sendRedirect(location);
         }

@@ -39,8 +39,8 @@ public class CommandFabric {
         Action result = null;
         for (Iterator<Action> i = listAction.iterator(); i.hasNext(); ) {
             result = i.next();
-            System.out.println(" result.getMethod()= "+result.getMethod());
-            System.out.println(" result.getPath()= "+result.getPath());
+//            System.out.println(" result.getMethod()= "+result.getMethod());
+//            System.out.println(" result.getPath()= "+result.getPath());
 
             if ((result.getMethod().equals(method)) & (result.getPath().equals(path))) {
                 System.out.println(" have result ");
@@ -49,6 +49,11 @@ public class CommandFabric {
             result = null;
 
         }
+        System.out.println(" method= "+method);
+        System.out.println(" path= "+path);
+
+        if (result==null){return actionCommand;}
+
         if (result.getName().equals("GetLoginAction")) {
             actionCommand = new GetLoginAction();
             return actionCommand;
