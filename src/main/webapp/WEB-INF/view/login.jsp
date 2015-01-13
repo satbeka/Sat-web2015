@@ -14,7 +14,7 @@
 
 
 <section>
-    <div class="b-popup__close"><span class="text">Закрыть</span> <span class="cross">×</span></div>
+
     <div>
 
             <form action="do/login" method="post">

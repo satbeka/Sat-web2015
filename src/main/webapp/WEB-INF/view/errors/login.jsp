@@ -9,6 +9,7 @@
 <html>
 <head>
     <title> Login or Password incorrect </title>
+    <p><b>Request URI:</b> ${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p><br />
 </head>
 <body>
 

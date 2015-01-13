@@ -9,6 +9,7 @@ public class GetLoginAction extends AbstractCommand implements ActionCommand{
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
         View view = new View("login");
+        System.out.println("GetLoginAction");
         return view;
     }
 }

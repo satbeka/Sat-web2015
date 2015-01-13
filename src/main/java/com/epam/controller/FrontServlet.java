@@ -30,6 +30,7 @@ public class FrontServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession(true);
+
         System.out.println("front sess=" + session);
         System.out.println("service req.getContextPath()="+req.getContextPath());
         String meth = req.getMethod();
@@ -56,7 +57,7 @@ public class FrontServlet extends HttpServlet {
         ;
 
         doPost(req, resp);
-        return;
+        //return;
 
         /*
         String actionName = "99999 "+req.getContextPath()+" "+req.getMethod() +" "+ req.getPathInfo();
@@ -78,7 +79,14 @@ public class FrontServlet extends HttpServlet {
         CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
         //System.out.println("doGet CommandFabric="+commandFabric);
         ActionCommand actionCommand = commandFabric.defineCommand(method, path);
+        if (actionCommand == null) {
+            System.out.println("Action not found");
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
+            return;
+        }
+
         View view = actionCommand.execute(req, resp);
+        //resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/"+view.getName().toString() + ".jsp");
         if (dispatcher != null){
@@ -91,8 +99,15 @@ public class FrontServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPost(req, resp);
 
-        String location = req.getContextPath();
-        //System.out.println("context path " + location);
+
+
+        //new URL(
+        System.out.println(req.getScheme());
+        System.out.println(req.getServerName());
+        System.out.println(req.getServerPort());
+        System.out.println(req.getContextPath());
+
+
 
         String method = req.getMethod();
         String path = req.getPathInfo();
@@ -103,13 +118,28 @@ public class FrontServlet extends HttpServlet {
         CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
         //System.out.println("doGet CommandFabric="+commandFabric);
         ActionCommand actionCommand = commandFabric.defineCommand(method, path);
+        if (actionCommand == null) {
+            System.out.println("Action not found");
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
+            return;
+        }
         View view = actionCommand.execute(req, resp);
         System.out.println("post view="+view.getName());
+
+
+        //req.s.setAttribute("URL",);
+        System.out.println("req.getRequestURL().toString()=" + req.getRequestURL().toString());
         if (view.getName().equals("redirect")){
+            //resp.encodeRedirectURL("");
+            //req.s
+            String location = req.getContextPath() +  view.getName().toString();
+            System.out.println("send redirect location="+location);
             resp.sendRedirect(location);
+            return;
         }
         else {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/"+view.getName().toString() + ".jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/" + view.getName().toString() + ".jsp");
+            System.out.println("post forward="+view.getName().toString());
             if (dispatcher != null) {
                 dispatcher.forward(req, resp);
             }

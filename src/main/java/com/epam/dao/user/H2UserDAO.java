@@ -95,7 +95,8 @@ public class H2UserDAO implements UserDAO{
     public User findUserByLoginByPassword(String login,String password) {
         //User user=new User();
         Connection cn=this.connection;
-
+        System.out.println("login="+login);
+        System.out.println("password="+password);
         PreparedStatement st = null;
         try {
             st = cn.prepareStatement("select * from user where login =? and password =? and nvl(deleted,0)!=1;");
@@ -110,9 +111,11 @@ public class H2UserDAO implements UserDAO{
         try {
             rs=st.executeQuery();
             rs.next();
-            role=rs.getLong(3);
+            role=rs.getLong("ROLE");
             if (role==1) {
-                Administrator administrator=null;
+                Administrator administrator=new Administrator();
+                System.out.println("administrato="+administrator);
+                System.out.println("rs.getLong(1)="+rs.getLong(1));
                 administrator.setId(rs.getLong(1));
                 administrator.setName(rs.getString(2));
                 administrator.setBirthDay(rs.getDate(8));
@@ -120,7 +123,7 @@ public class H2UserDAO implements UserDAO{
                 administrator.setPassword(rs.getString(6));
                 return administrator;}
 
-            Client client=null;
+            Client client=new Client();
             client.setId(rs.getLong(1));
             client.setName(rs.getString(2));
             client.setBirthDay(rs.getDate(8));
@@ -129,6 +132,7 @@ public class H2UserDAO implements UserDAO{
             return client;
 
         } catch (SQLException e) {
+            System.out.println("sql="+e.getMessage());
             //TODO log e.printStackTrace();
         }
 

@@ -27,6 +27,7 @@ public class SecurityFilter implements Filter{
 
         String url=httpRequest.getPathInfo();
         System.out.println("secur url="+url);
+        System.out.println("session url="+session.getAttribute("URL"));
         //String role=
         String role=(String)session.getAttribute("ROLE");
         //String role=(String)request.getAttribute("ROLE");

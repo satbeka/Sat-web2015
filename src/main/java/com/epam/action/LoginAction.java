@@ -44,13 +44,15 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
         }
         ;
 
-        if (user.getClass().toString() == "Administrator") {
+        System.out.println("user.getClass().getSimpleName().toString()=" + user.getClass().getSimpleName().toString());
+        if (user.getClass().getSimpleName().equals("Administrator")) {
             req.getSession().setAttribute("ROLE", "ADMINISTRATOR");
             view.setName("redirect");
+            System.out.println("view.getName()="+view.getName());
             return view;
         }
 
-        if (user.getClass().toString() == "Client") {
+        if (user.getClass().getSimpleName().equals("Client")) {
             req.getSession().setAttribute("ROLE", "CLIENT");
             view.setName("redirect");
             return view;

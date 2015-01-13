@@ -8,6 +8,9 @@ public class LogoutAction extends AbstractCommand implements ActionCommand{
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
+
+
+        req.getSession().invalidate();
         return null;
     }
 }

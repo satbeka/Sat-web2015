@@ -21,7 +21,7 @@
 
 
     <ul>
-        <li><a rel="nofollow" href="/do/login" class="login-button">Вход</a> в личный кабинет</li>
+        <li><a href="/do/login" class="login-button">Вход</a> в личный кабинет</li>
     </ul>
 
 
