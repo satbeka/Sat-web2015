@@ -61,9 +61,9 @@
         <name>DeleteOrderAction</name>
         <view>deleteorder</view>
     </action>
-    <action method="GET" path="/do/client/whatdo">
-        <name>WhatDoAction</name>
-        <view>clientmenu</view>
+    <action method="GET" path="/clientwhatdo">
+        <name>ClientWhatDo</name>
+        <view>clientwhatdo</view>
     </action>
 
 

@@ -71,6 +71,7 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
             req.getSession().setAttribute("ROLE", "CLIENT");
             req.getSession().setAttribute("user33", "Hello! CLIENT");
             view.setRedirect(true);
+            view.setName("clientwhatdo");
             System.out.println("client view.getName()="+view.getName());
             return view;
         }
