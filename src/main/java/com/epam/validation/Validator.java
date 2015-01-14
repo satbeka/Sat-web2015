@@ -13,13 +13,13 @@ public class Validator {
         return true;
     };
 
-    public boolean isChar(Character cr) {
+    public static boolean isChar(Character cr) {
         return true;
     };
-    public boolean isNumber(Number number) {
+    public static boolean isNumber(Number number) {
         return true;
     };
-    public boolean isLoginCorrect(String login){
+    public static boolean isLoginCorrect(String login){
         String regex="[a-zA-Z_0-9]+";
         Pattern p=Pattern.compile(regex);
         System.out.println("login="+login);

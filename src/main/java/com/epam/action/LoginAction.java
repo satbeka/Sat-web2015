@@ -8,6 +8,7 @@ import com.epam.dao.administrator.AdministratorDAO;
 import com.epam.dao.administrator.H2AdministratorDAO;
 import com.epam.dao.factory.DAOFactory;
 import com.epam.model.*;
+import com.epam.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,11 +30,20 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
         View view = new View(this.getAction().getView());
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        //AdministratorDAO administratorDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getAdministratorDAO();
-        //H2AdministratorDAO h2AdministratorDAO=(H2AdministratorDAO)administratorDAO;
-        //ConnectionPool connectionPool=(ConnectionPool)req.getServletContext().getAttribute("poolInstance");
+        req.getSession().setAttribute("loginnotcorrect", null);
+        req.getSession().setAttribute("passwordnotcorrect", null);
+        if (!Validator.isLoginCorrect(login)){
+            view.setName("errors/login");
+            req.getSession().setAttribute("loginnotcorrect", " LOGIN not correct!");
+            return view;
+        };
+        if (!Validator.isLoginCorrect(password)){
+            view.setName("errors/login");
+            req.getSession().setAttribute("passwordnotcorrect", " PASSWORD not correct!");
+            return view;
+        };
+
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        //h2AdministratorDAO.setConnection(connectionPool);
         UserDAO userDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getUserDAO();
         H2UserDAO h2UserDAO = (H2UserDAO) userDAO;
         h2UserDAO.setConnection(connectionPool);
@@ -51,8 +61,9 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
             req.getSession().setAttribute("ROLE", "ADMINISTRATOR");
             req.getSession().setAttribute("user33", "Hello! ADMINISTRATOR");
             view.setRedirect(true);
+            view.setName("administratorwhatdo");
             //view.setName("redirect");
-            System.out.println("admin view.getName()="+view.getName());
+            System.out.println("administratorwhatdo view.getName()=" + view.getName());
             return view;
         }
 

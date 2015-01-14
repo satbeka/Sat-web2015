@@ -9,7 +9,7 @@ import com.epam.config.Eshop;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class CommandFabric {
+public class CommandFactory {
 
     public ArrayList<Action> getCommandList() {
         return commandList;
@@ -17,7 +17,7 @@ public class CommandFabric {
 
     private ArrayList<Action> commandList;
 
-    public CommandFabric() {
+    public CommandFactory() {
     }
 
     ;
@@ -43,7 +43,7 @@ public class CommandFabric {
 //            System.out.println(" result.getPath()= "+result.getPath());
 
             if ((result.getMethod().equals(method)) & (result.getPath().equals(path))) {
-                System.out.println(" have result ");
+                System.out.println(" have result= "+result.getName());
                 break;
             }
             result = null;
@@ -67,20 +67,20 @@ public class CommandFabric {
             actionCommand = new LoginAction(result);
             return actionCommand;
 
-        }
-        ;
-        if (result.getName().equals("MarkClientBlackListAction")) {
-            actionCommand = new MarkClientBlackListAction();
+        };
+        //AdministratorWhatDo
+        if (result.getName().equals("AdministratorWhatDo")) {
+            actionCommand = new AdministratorWhatDo(result);
             return actionCommand;
         }
         ;
-        if (result.getName().toString() == "LogoutAction") {
-            actionCommand = new LogoutAction();
+        if (result.getName().equals("LogoutAction")) {
+            actionCommand = new LogoutAction(result);
             return actionCommand;
         }
         ;
-        if (result.getName().toString() == "AddProductAction") {
-            actionCommand = new AddProductAction();
+        if (result.getName().equals("AddProduct")) {
+            actionCommand = new AddProduct(result);
         }
         ;
         if (result.getName().toString() == "LoginAction") {

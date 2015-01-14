@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 1
-  Date: 17.12.2014
-  Time: 18:21
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,6 +8,10 @@
 <body>
 
 <jsp:text>Login or Password incorrect! Please, Try again! </jsp:text>
+${loginnotcorrect}
+<br/>
+${passwordnotcorrect}
+<br/>
 ${ header["host"] }
 <a> servletName=  ${pageContext.servletConfig.servletName} </a>
 

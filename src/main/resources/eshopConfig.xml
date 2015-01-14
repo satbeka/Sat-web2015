@@ -1,68 +1,70 @@
 <eshop>
 
-    <action method="GET" path="/do/administrator/whatdo">
-        <name>WhatDoAction</name>
-        <view>adminmenu</view>
+    <action method="GET" path="/administratorwhatdo">
+        <name>AdministratorWhatDo</name>
+        <view>administratorwhatdo</view>
     </action>
 
-        <action method="POST" path="/do/administrator/logout">
-            <name>LogoutAction</name>
-            <view>adminlogout</view>
-        </action>
-        <action method="GET" path="/do/administrator/addProduct">
-            <name>AddProductAction</name>
-            <view>addproduct</view>
-        </action>
-        <action method="POST" path="/do/administrator/editProduct">
-            <name>EditProductAction</name>
-            <view>editproduct</view>
-        </action>
-        <action method="GET" path="/do/administrator/markClientBlackList">
-            <name>MarkClientBlackListAction</name>
-            <view>markclietnbl</view>
-        </action>
-        <action method="GET" path="/do/administrator/unmarkClientBlackList">
-            <name>UnmarkClientBlackListAction</name>
-            <view>unmarkclientbl</view>
-        </action>
+    <action method="GET" path="/administratoraddproduct">
+        <name>AddProduct</name>
+        <view>administratoraddproduct</view>
+    </action>
+    <action method="GET" path="/administratoreditproduct">
+        <name>EditProduct</name>
+        <view>administratoreditproduct</view>
+    </action>
 
-       <action method="POST" path="/do/login">
-           <name>LoginAction</name>
-           <view>login</view>
-       </action>
+
+
+    <action method="Post" path="/administratorsaveproduct">
+        <name>AdministratorSaveProduct</name>
+        <view>administratorsaveproduct</view>
+    </action>
+
+    <action method="GET" path="/administratormarkClientBlackList">
+        <name>MarkClientBlackListAction</name>
+        <view>markclietnbl</view>
+    </action>
+    <action method="GET" path="/administratorunmarkClientBlackList">
+        <name>UnmarkClientBlackListAction</name>
+        <view>unmarkclientbl</view>
+    </action>
+
+    <action method="POST" path="/login">
+        <name>LoginAction</name>
+        <view>login</view>
+    </action>
+
     <action method="GET" path="/login">
         <name>GetLoginAction</name>
         <view>login</view>
     </action>
-    <action method="GET" path="/do/login">
-        <name>GetLoginAction</name>
-        <view>login</view>
-    </action>
+    >
 
-       <action method="POST" path="/do/client/logout">
-           <name>LogoutAction</name>
-           <view>clientlogout</view>
-       </action>
-       <action method="GET" path="/do/client/createOrder">
-           <name>CreateOrderAction</name>
-           <view>createorder</view>
-       </action>
-       <action method="POST" path="/do/client/confimOrder">
-           <name>ConfimOrderAction</name>
-           <view>confirmorder</view>
-       </action>
-       <action method="GET" path="/do/client/payOrder">
-           <name>PayOrderAction</name>
-           <view>payorder</view>
-       </action>
-       <action method="GET" path="/do/client/deleteOrder">
-           <name>DeleteOrderAction</name>
-           <view>deleteorder</view>
-       </action>
-       <action method="GET" path="/do/client/whatdo">
-           <name>WhatDoAction</name>
-           <view>clientmenu</view>
-       </action>
+    <action method="GET" path="/logout">
+        <name>LogoutAction</name>
+        <view>indexforward</view>
+    </action>
+    <action method="GET" path="/do/client/createOrder">
+        <name>CreateOrderAction</name>
+        <view>createorder</view>
+    </action>
+    <action method="POST" path="/do/client/confimOrder">
+        <name>ConfimOrderAction</name>
+        <view>confirmorder</view>
+    </action>
+    <action method="GET" path="/do/client/payOrder">
+        <name>PayOrderAction</name>
+        <view>payorder</view>
+    </action>
+    <action method="GET" path="/do/client/deleteOrder">
+        <name>DeleteOrderAction</name>
+        <view>deleteorder</view>
+    </action>
+    <action method="GET" path="/do/client/whatdo">
+        <name>WhatDoAction</name>
+        <view>clientmenu</view>
+    </action>
 
 
 </eshop>

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 1
-  Date: 17.12.2014
-  Time: 18:21
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,7 +15,7 @@
 
 
     <ul>
-        <li><a href="/do/login" class="login-button">Вход</a> в личный кабинет</li>
+        <li><a href="<c:url value="/do/login"/>" class="login-button">Вход</a> в личный кабинет</li>
     </ul>
 
 

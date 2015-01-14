@@ -26,9 +26,9 @@ public class UrlRewriteFilter implements Filter{
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
         System.out.println("path in rewr filter=" + path);
-        if (path.startsWith("/do/do/")) {
-            System.out.println("req.getRequestDispatcher= " + path.replace("/do/do/",""));
-            req.getRequestDispatcher(path.replace("/do/do/","")).forward(req, res);
+        if (path.startsWith("/do/")) {
+            System.out.println("req.getRequestDispatcher= " + path.replace("/do/",""));
+            req.getRequestDispatcher(path.replace("/do/","")).forward(req, res);
 
         } else {
             System.out.println("chain.doFilter(req, res)= ");

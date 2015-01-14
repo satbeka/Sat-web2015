@@ -27,11 +27,11 @@ public class SecurityFilter implements Filter{
 
         String url=httpRequest.getPathInfo();
         System.out.println("secur url="+url);
-        System.out.println("session url="+session.getAttribute("URL"));
+        //System.out.println("session url="+session.getAttribute("URL"));
         //String role=
         String role=(String)session.getAttribute("ROLE");
         //String role=(String)request.getAttribute("ROLE");
-        System.out.println("seecur role888="+role);
+        //System.out.println("seecur role888="+role);
         //System.out.println("seecur Attr role="+httpRequest.getAttributeNames().hashCode());
         if (role==User.Role.ADMINISTRATOR.toString()){
             /*

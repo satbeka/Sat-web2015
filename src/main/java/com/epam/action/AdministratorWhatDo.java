@@ -1,20 +1,16 @@
 package com.epam.action;
 
-
 import com.epam.config.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogoutAction extends AbstractCommand implements ActionCommand{
-
+public class AdministratorWhatDo extends AbstractCommand implements ActionCommand {
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
         View view = new View(this.getAction().getView());
-        System.out.println("LogoutAction="+this.getAction().getView());
-        req.getSession().invalidate();
+        System.out.println("AdministratorWhatDo="+this.getAction().getView());
         return view;
-
     }
     public Action getAction() {
         return action;
@@ -26,6 +22,6 @@ public class LogoutAction extends AbstractCommand implements ActionCommand{
 
     private Action action;
 
-    public LogoutAction(){};
-    public LogoutAction(Action action){this.action=action;};
+    public AdministratorWhatDo(){};
+    public AdministratorWhatDo(Action action){this.action=action;};
 }

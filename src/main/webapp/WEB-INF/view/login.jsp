@@ -1,10 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 1
-  Date: 21.12.2014
-  Time: 19:38
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,22 +12,20 @@
 
     <div>
 
-            <form action="do/login" method="post">
+            <form action="<c:url value="/do/login"/>" method="post">
                 <input type="hidden" name="command1" value="login55" />
                 <input type="text" name="login" value="" /><br/>
                 <input type="text" name="password" value="" /><br/>
                 <input type="submit" value="Нажать" /><br/>
                 ${wrongAction}
                 <br/>
-                ${user33}
-                <br/>
-                <a href="do/logout">Logout</a>
+
             </form>
 
 
 
     </div>
-    <div class="social_reg">
+
     </div>
 </section>
 

@@ -1,9 +1,8 @@
 package com.epam.controller;
 
 import com.epam.action.ActionCommand;
-import com.epam.action.CommandFabric;
+import com.epam.action.CommandFactory;
 import com.epam.action.View;
-import com.epam.db.ConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -21,9 +20,6 @@ public class FrontServlet extends HttpServlet {
     //@Override
     public void init(ServletContext servletContext) throws ServletException {
 
-        System.out.println("init");
-        //servletContext.setAttribute("poolInstance",connectionPool);
-        //this.login = servletContext;
     }
 
     @Override
@@ -48,27 +44,6 @@ public class FrontServlet extends HttpServlet {
         ;
         String role = (String) session.getAttribute("ROLE");
         System.out.println("front role=" + role);
-        //System.out.println("front Attr role="+req.getAttributeNames().hashCode());
-
-        if (req.getMethod() == "GET") {
-            doGet(req, resp);
-            return;
-        }
-        ;
-
-        doPost(req, resp);
-        return;
-
-        /*
-        String actionName = "99999 "+req.getContextPath()+" "+req.getMethod() +" "+ req.getPathInfo();
-        System.out.println(actionName);
-        */
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doGet(req, resp);
-        //int i;
         String method = req.getMethod();
         String path = req.getPathInfo();
 
@@ -76,9 +51,8 @@ public class FrontServlet extends HttpServlet {
         Object object=req.getServletContext().getAttribute("CommandFabric");
         //System.out.println("doGet CommandFabric="+object);
 
-        CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
-        //System.out.println("doGet CommandFabric="+commandFabric);
-        ActionCommand actionCommand = commandFabric.defineCommand(method, path);
+        CommandFactory commandFactory = (CommandFactory) req.getServletContext().getAttribute("CommandFabric");
+        ActionCommand actionCommand = commandFactory.defineCommand(method, path);
         if (actionCommand == null) {
             System.out.println("Action not found");
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
@@ -86,71 +60,30 @@ public class FrontServlet extends HttpServlet {
         }
 
         View view = actionCommand.execute(req, resp);
-        //resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/"+view.getName().toString() + ".jsp");
-        if (dispatcher != null){
-            dispatcher.forward(req, resp);}
-
+        System.out.println("   /WEB-INF/view/"+view.getName().toString() + ".jsp");
+        doForwardOrRedirect(view, req, resp);
+        //return;
 
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doPost(req, resp);
-
-
-
-        //new URL(
-        System.out.println(req.getScheme());
-        System.out.println(req.getServerName());
-        System.out.println(req.getServerPort());
-        System.out.println(req.getContextPath());
-
-
-
-        String method = req.getMethod();
-        String path = req.getPathInfo();
-        System.out.println("doPost path="+path);
-        Object object=req.getServletContext().getAttribute("CommandFabric");
-        //System.out.println("doPost CommandFabric="+object);
-
-        CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
-        //System.out.println("doGet CommandFabric="+commandFabric);
-        ActionCommand actionCommand = commandFabric.defineCommand(method, path);
-        if (actionCommand == null) {
-            System.out.println("Action not found");
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
-            return;
-        }
-        View view = actionCommand.execute(req, resp);
-        System.out.println("post view="+view.getName());
-
-
-        //req.s.setAttribute("URL",);
-        System.out.println("req.getRequestURL().toString()=" + req.getRequestURL().toString());
+    private void doForwardOrRedirect(View view, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (view.isRedirect()){
             //resp.encodeRedirectURL("");
             //req.s
             String location = req.getContextPath() +  view.getName().toString();
-            System.out.println("post send redirect location="+location);
+            //System.out.println("post send redirect location="+location);
             resp.sendRedirect(location);
             System.out.println("return post send redirect location="+location);
             return;
         }
         else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/" + view.getName().toString() + ".jsp");
-            System.out.println("post forward="+view.getName().toString());
+            System.out.println("forward="+view.getName().toString());
             if (dispatcher != null) {
                 dispatcher.forward(req, resp);
             }
-        }
-        /*
-        RequestDispatcher dispatcher =req.getRequestDispatcher("/myweb/index.jsp");
-        if (dispatcher!=null){
-        System.out.println("post com.epam.service ");
-        dispatcher.forward(req, resp);}
-        */
+    }
+
 
     }
 }
