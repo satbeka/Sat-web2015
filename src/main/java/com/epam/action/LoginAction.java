@@ -25,7 +25,8 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
     private Action action;
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
-        View view = new View("");
+        req.getSession().setAttribute("user33", "");
+        View view = new View(this.getAction().getView());
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         //AdministratorDAO administratorDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getAdministratorDAO();
@@ -46,15 +47,20 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
 
         System.out.println("user.getClass().getSimpleName().toString()=" + user.getClass().getSimpleName().toString());
         if (user.getClass().getSimpleName().equals("Administrator")) {
+            String com = req.getParameter("command1");
             req.getSession().setAttribute("ROLE", "ADMINISTRATOR");
-            view.setName("redirect");
-            System.out.println("view.getName()="+view.getName());
+            req.getSession().setAttribute("user33", "Hello! ADMINISTRATOR");
+            view.setRedirect(true);
+            //view.setName("redirect");
+            System.out.println("admin view.getName()="+view.getName());
             return view;
         }
 
         if (user.getClass().getSimpleName().equals("Client")) {
             req.getSession().setAttribute("ROLE", "CLIENT");
-            view.setName("redirect");
+            req.getSession().setAttribute("user33", "Hello! CLIENT");
+            view.setRedirect(true);
+            System.out.println("client view.getName()="+view.getName());
             return view;
         }
         return view;

@@ -34,6 +34,11 @@
         <name>GetLoginAction</name>
         <view>login</view>
     </action>
+    <action method="GET" path="/do/login">
+        <name>GetLoginAction</name>
+        <view>login</view>
+    </action>
+
        <action method="POST" path="/do/client/logout">
            <name>LogoutAction</name>
            <view>clientlogout</view>

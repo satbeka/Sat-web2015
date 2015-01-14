@@ -49,13 +49,16 @@ public class CommandFabric {
             result = null;
 
         }
-        System.out.println(" method= "+method);
-        System.out.println(" path= "+path);
+        System.out.println(" method= " + method);
+        System.out.println(" path= " + path);
 
-        if (result==null){return actionCommand;}
+        if (result == null) {
+            return actionCommand;
+        }
+
 
         if (result.getName().equals("GetLoginAction")) {
-            actionCommand = new GetLoginAction();
+            actionCommand = new GetLoginAction(result);
             return actionCommand;
 
         }

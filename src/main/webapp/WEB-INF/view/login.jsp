@@ -18,10 +18,15 @@
     <div>
 
             <form action="do/login" method="post">
-
+                <input type="hidden" name="command1" value="login55" />
                 <input type="text" name="login" value="" /><br/>
                 <input type="text" name="password" value="" /><br/>
                 <input type="submit" value="Нажать" /><br/>
+                ${wrongAction}
+                <br/>
+                ${user33}
+                <br/>
+                <a href="do/logout">Logout</a>
             </form>
 
 

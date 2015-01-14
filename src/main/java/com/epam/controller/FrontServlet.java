@@ -31,14 +31,14 @@ public class FrontServlet extends HttpServlet {
 
         HttpSession session = req.getSession(true);
 
-        System.out.println("front sess=" + session);
-        System.out.println("service req.getContextPath()="+req.getContextPath());
+        //System.out.println("front sess=" + session);
+        //System.out.println("service req.getContextPath()="+req.getContextPath());
         String meth = req.getMethod();
         String actionName = req.getMethod() + req.getPathInfo();
         System.out.println("actionName=" + actionName);
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        System.out.println("FrontServlet  connectionPool = [" + connectionPool + "]");
+        //ConnectionPool connectionPool = ConnectionPool.getInstance();
+        //System.out.println("FrontServlet  connectionPool = [" + connectionPool + "]");
 
         //User user=new Administrator();
         if (session.getAttribute("ROLE") != "ADMINISTRATOR") {
@@ -57,7 +57,7 @@ public class FrontServlet extends HttpServlet {
         ;
 
         doPost(req, resp);
-        //return;
+        return;
 
         /*
         String actionName = "99999 "+req.getContextPath()+" "+req.getMethod() +" "+ req.getPathInfo();
@@ -74,7 +74,7 @@ public class FrontServlet extends HttpServlet {
 
         //System.out.println("doGet 5577778887775999111");
         Object object=req.getServletContext().getAttribute("CommandFabric");
-        System.out.println("doGet CommandFabric="+object);
+        //System.out.println("doGet CommandFabric="+object);
 
         CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
         //System.out.println("doGet CommandFabric="+commandFabric);
@@ -113,7 +113,7 @@ public class FrontServlet extends HttpServlet {
         String path = req.getPathInfo();
         System.out.println("doPost path="+path);
         Object object=req.getServletContext().getAttribute("CommandFabric");
-        System.out.println("doPost CommandFabric="+object);
+        //System.out.println("doPost CommandFabric="+object);
 
         CommandFabric commandFabric = (CommandFabric) req.getServletContext().getAttribute("CommandFabric");
         //System.out.println("doGet CommandFabric="+commandFabric);
@@ -129,12 +129,13 @@ public class FrontServlet extends HttpServlet {
 
         //req.s.setAttribute("URL",);
         System.out.println("req.getRequestURL().toString()=" + req.getRequestURL().toString());
-        if (view.getName().equals("redirect")){
+        if (view.isRedirect()){
             //resp.encodeRedirectURL("");
             //req.s
             String location = req.getContextPath() +  view.getName().toString();
-            System.out.println("send redirect location="+location);
+            System.out.println("post send redirect location="+location);
             resp.sendRedirect(location);
+            System.out.println("return post send redirect location="+location);
             return;
         }
         else {

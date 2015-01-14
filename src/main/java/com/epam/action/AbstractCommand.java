@@ -4,13 +4,20 @@ package com.epam.action;
 import com.epam.config.Action;
 
 public class AbstractCommand {
-    private Action action;
 
-    public Action getAction() {
-        return action;
+    public void setSuccessView(String successView) {
+        this.successView = successView;
     }
 
-    public void setAction(Action action) {
-        this.action = action;
+    public String getErrorView() {
+        return errorView;
     }
+
+    public void setErrorView(String errorView) {
+        this.errorView = errorView;
+    }
+
+    private String successView;
+    private String errorView;
+
 }
