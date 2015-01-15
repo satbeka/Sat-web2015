@@ -19,7 +19,7 @@
     </action>
 
     <action method="GET" path="/administratorclientlist">
-        <name>MarkClient</name>
+        <name>ClientList</name>
         <view>administratorclientlist</view>
     </action>
     <action method="POST" path="/administratorclientlist">
@@ -28,7 +28,7 @@
     </action>
 
 
-    
+
 
     <action method="POST" path="/login">
         <name>LoginAction</name>

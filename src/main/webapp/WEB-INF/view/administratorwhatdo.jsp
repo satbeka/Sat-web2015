@@ -18,7 +18,7 @@
     <ul>
         <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов ( добавить продукт )</li>
         <li><a href="/do/administratoreditproduct" class="login-button">Вход</a> в каталог продуктов ( изменить продукт )</li>
-        <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов ()</li>
+        <li><a href="/do/administratorclientlist" class="login-button">Вход</a> в список клиентов (пометить в черном списке )</li>
         <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов</li>
     </ul>
 
