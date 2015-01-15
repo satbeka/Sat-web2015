@@ -13,22 +13,22 @@
         <name>EditProduct</name>
         <view>administratoreditproduct</view>
     </action>
-
-
-
     <action method="POST" path="/administratoraddproduct">
         <name>SaveProduct</name>
         <view>administratoraddproduct</view>
     </action>
 
-    <action method="GET" path="/administratormarkClientBlackList">
-        <name>MarkClientBlackListAction</name>
-        <view>markclietnbl</view>
+    <action method="GET" path="/administratorclientlist">
+        <name>MarkClient</name>
+        <view>administratorclientlist</view>
     </action>
-    <action method="GET" path="/administratorunmarkClientBlackList">
-        <name>UnmarkClientBlackListAction</name>
-        <view>unmarkclientbl</view>
+    <action method="POST" path="/administratorclientlist">
+        <name>SaveClientList</name>
+        <view>administratorclientlist</view>
     </action>
+
+
+    
 
     <action method="POST" path="/login">
         <name>LoginAction</name>
