@@ -16,9 +16,9 @@
 
 
 
-    <action method="Post" path="/administratorsaveproduct">
-        <name>AdministratorSaveProduct</name>
-        <view>administratorsaveproduct</view>
+    <action method="POST" path="/administratoraddproduct">
+        <name>SaveProduct</name>
+        <view>administratoraddproduct</view>
     </action>
 
     <action method="GET" path="/administratormarkClientBlackList">

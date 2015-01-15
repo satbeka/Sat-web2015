@@ -31,6 +31,17 @@ public class Validator {
             return false;
 
     }
+    public static boolean isPriceCorrect(String price){
+        String regex="[0-9.]+";
+        Pattern p=Pattern.compile(regex);
+        System.out.println("price="+price);
+        Matcher matcher = p.matcher(price);
+        if (matcher.matches()){
+            return true;
+        }
+        else
+            return false;
 
+    }
 
 }

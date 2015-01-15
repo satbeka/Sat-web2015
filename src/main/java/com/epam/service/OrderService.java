@@ -59,7 +59,7 @@ public class OrderService {
 
                 ProductDAO productDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getProductDAO();
                 H2ProductDAO h2ProductDAO=(H2ProductDAO)productDAO;
-                h2ProductDAO.createConnection(connectionPool);
+                h2ProductDAO.setConnection(connectionPool);
                 Product product = productDAO.findProductById(rs.getLong(3));
                 h2ProductDAO.closeConnection(connectionPool);
 

@@ -7,7 +7,7 @@ import javax.sql.RowSet;
 import java.util.List;
 
 public interface ProductDAO {
-    public int insertProduct(Product product);
+    public long insertProduct(Product product);
     public boolean deleteProduct(Product product);
     public Product findProductByName(String name);
     public Product findProductById(long id);

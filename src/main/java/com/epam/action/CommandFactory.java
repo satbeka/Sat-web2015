@@ -83,8 +83,8 @@ public class CommandFactory {
             actionCommand = new AddProduct(result);
         }
         ;
-        if (result.getName().toString() == "LoginAction") {
-            actionCommand = new LoginAction();
+        if (result.getName().equals("SaveProduct")) {
+            actionCommand = new SaveProduct(result);
         }
         ;
         if (result.getName().toString() == "LoginAction") {

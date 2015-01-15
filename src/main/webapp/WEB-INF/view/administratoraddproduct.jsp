@@ -22,5 +22,10 @@ ${user33}
         </tr>
     </c:forEach>
 </table>
+<form action="<c:url value="/do/administratoraddproduct"/>" method="post">
+    Name: <input type="text" name="name">
+    <br />
+    Price: <input type="text" name="price" />
+    <input type="submit" value="Submit" />
 </body>
 </html>
