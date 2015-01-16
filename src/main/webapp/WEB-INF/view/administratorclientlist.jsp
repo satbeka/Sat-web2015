@@ -34,7 +34,7 @@ ${user33}
 </table>
 </form>
 <tr>
-    <button input type="submit" form="markclientlist" value="Save List"></button>
+    <button type="submit" class="button" form="markclientlist">Save List</button>
 </tr>
 
 </body>
