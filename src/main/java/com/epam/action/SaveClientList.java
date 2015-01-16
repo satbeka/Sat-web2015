@@ -56,7 +56,7 @@ public class SaveClientList extends AbstractCommand implements ActionCommand {
             h2ClientDAO.closeConnection(connectionPool);
         }
         view.setRedirect(true);
-        System.out.println("markClientbyAdministrator view.getName()=" + view.getName());
+        System.out.println(" markClientbyAdministrator view.getName()=" + view.getName());
         return view;
     }
 
