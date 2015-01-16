@@ -11,6 +11,7 @@
 ${user33}
 <br/>
 <a href="logout">Logout</a>
+<form id="markclientlist" action="<c:url value="/do/administratorclientlist"/>" method="POST">
 <table>
     <c:forEach var="elem" items="${lst}">
         <tr>
@@ -19,11 +20,11 @@ ${user33}
             <td><c:out value="${ elem.name }" /></td>
             <td><c:out value="${ elem.insertDate }" /></td>
             <td><c:out value="${ elem.blackList }" /></td>
-            <td><input type="checkbox" name="mark"
+            <td><input type="checkbox" name="MarkId"
                     <c:if test="${ elem.blackList==1 }">
                         checked="checked"
                     </c:if>
-                       
+                       value="${elem.id}"
                          /> Mark</td>
 
 
@@ -31,7 +32,10 @@ ${user33}
         </tr>
     </c:forEach>
 </table>
-<form action="<c:url value="/do/administratorclientlist"/>" method="POST">
-      <input type="submit" value="Save List" />
+</form>
+<tr>
+    <button input type="submit" form="markclientlist" value="Save List"></button>
+</tr>
+
 </body>
 </html>

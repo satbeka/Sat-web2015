@@ -25,7 +25,14 @@ public class SaveClientList extends AbstractCommand implements ActionCommand{
     private Action action;
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
-        String name=req.getParameter("name");
+        String[] listMarkId=req.getParameterValues("MarkId");
+
+        for (String clientId : listMarkId) {
+            System.out.println(" mark ID= " + clientId);
+            Long id = Long.parseLong(clientId);
+
+        }
+
         String price=req.getParameter("price");
         View view = new View(this.getAction().getView());
         if (!Validator.isPriceCorrect(price)){
@@ -39,7 +46,7 @@ public class SaveClientList extends AbstractCommand implements ActionCommand{
         H2ProductDAO h2ProductDAO = (H2ProductDAO) productDAO;
         h2ProductDAO.setConnection(connectionPool);
         Product product =new Product();
-        product.setName(name);
+        //product.setName(name);
         product.setPrice(BigDecimal.valueOf(Double.parseDouble(price)));
 
         long id=((H2ProductDAO) productDAO).insertProduct(product);
