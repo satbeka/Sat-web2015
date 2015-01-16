@@ -91,10 +91,13 @@ public class CommandFactory {
             actionCommand = new GetClientList(result);
         }
         ;
-        if (result.getName().toString() == "LoginAction") {
-            actionCommand = new LoginAction();
+        if (result.getName().equals("SaveClientList")) {
+            actionCommand = new SaveClientList(result);
         }
         ;
+
+
+        
         if (result.getName().toString() == "LoginAction") {
             actionCommand = new LoginAction();
         }
