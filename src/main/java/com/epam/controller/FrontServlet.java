@@ -3,6 +3,8 @@ package com.epam.controller;
 import com.epam.action.ActionCommand;
 import com.epam.action.CommandFactory;
 import com.epam.action.View;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class FrontServlet extends HttpServlet {
-
+    private static final Logger log = LoggerFactory.getLogger(FrontServlet.class);
     private ServletContext login;
 
     //@Override
@@ -32,7 +34,9 @@ public class FrontServlet extends HttpServlet {
         String meth = req.getMethod();
         String actionName = req.getMethod() + req.getPathInfo();
         System.out.println("actionName=" + actionName);
-
+        log.debug("Requested action: " + actionName);
+        log.debug("current URI: " + req.getRequestURL());
+        log.debug("Referrer: " + req.getHeader("Referrer"));
         //ConnectionPool connectionPool = ConnectionPool.getInstance();
         //System.out.println("FrontServlet  connectionPool = [" + connectionPool + "]");
 
