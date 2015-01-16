@@ -79,16 +79,16 @@ public class CommandFactory {
             return actionCommand;
         }
         ;
-        if (result.getName().equals("AddProduct")) {
-            actionCommand = new AddProduct(result);
+        if (result.getName().equals("GetProductList")) {
+            actionCommand = new GetProductList(result);
         }
         ;
         if (result.getName().equals("SaveProduct")) {
             actionCommand = new SaveProduct(result);
         }
         ;
-        if (result.getName().equals("MarkClient")) {
-            actionCommand = new ClientList(result);
+        if (result.getName().equals("GetClientList")) {
+            actionCommand = new GetClientList(result);
         }
         ;
         if (result.getName().toString() == "LoginAction") {

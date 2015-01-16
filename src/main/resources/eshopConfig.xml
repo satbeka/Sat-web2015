@@ -6,7 +6,7 @@
     </action>
 
     <action method="GET" path="/administratoraddproduct">
-        <name>AddProduct</name>
+        <name>GetProductList</name>
         <view>administratoraddproduct</view>
     </action>
     <action method="GET" path="/administratoreditproduct">
@@ -19,7 +19,7 @@
     </action>
 
     <action method="GET" path="/administratorclientlist">
-        <name>ClientList</name>
+        <name>GetClientList</name>
         <view>administratorclientlist</view>
     </action>
     <action method="POST" path="/administratorclientlist">
