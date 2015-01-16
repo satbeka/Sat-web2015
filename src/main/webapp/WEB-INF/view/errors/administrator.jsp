@@ -9,6 +9,7 @@
 
 <jsp:text>Administrator action is not correct! Please, Try again! </jsp:text>
 ${pricenotcorrect}
+${markidnotcorrect}
 <br/>
 ${ header["host"] }
 <a> servletName=  ${pageContext.servletConfig.servletName} </a>

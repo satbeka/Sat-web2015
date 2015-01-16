@@ -57,14 +57,14 @@ public class CommandFactory {
         }
 
 
-        if (result.getName().equals("GetLoginAction")) {
-            actionCommand = new GetLoginAction(result);
+        if (result.getName().equals("GetLogin")) {
+            actionCommand = new GetLogin(result);
             return actionCommand;
 
         }
         ;
-        if (result.getName().equals("LoginAction")) {
-            actionCommand = new LoginAction(result);
+        if (result.getName().equals("Login")) {
+            actionCommand = new Login(result);
             return actionCommand;
 
         };
@@ -74,8 +74,8 @@ public class CommandFactory {
             return actionCommand;
         }
         ;
-        if (result.getName().equals("LogoutAction")) {
-            actionCommand = new LogoutAction(result);
+        if (result.getName().equals("Logout")) {
+            actionCommand = new Logout(result);
             return actionCommand;
         }
         ;
@@ -99,11 +99,11 @@ public class CommandFactory {
 
 
         if (result.getName().toString() == "LoginAction") {
-            actionCommand = new LoginAction();
+            actionCommand = new Login();
         }
         ;
         if (result.getName().toString() == "LoginAction") {
-            actionCommand = new LoginAction();
+            actionCommand = new Login();
         }
         ;
         return actionCommand;

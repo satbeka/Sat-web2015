@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class LoginAction extends AbstractCommand implements ActionCommand{
+public class Login extends AbstractCommand implements ActionCommand{
     public Action getAction() {
         return action;
     }
@@ -79,8 +79,8 @@ public class LoginAction extends AbstractCommand implements ActionCommand{
     };
 
 
-    public LoginAction() {};
-    public LoginAction(Action action){
+    public Login() {};
+    public Login(Action action){
         this.action=action;
     };
 

@@ -3,6 +3,7 @@ package com.epam.dao.factory;
 import com.epam.dao.ConnectionException;
 import com.epam.dao.address.AddressDAO;
 import com.epam.dao.administrator.AdministratorDAO;
+import com.epam.dao.client.ClientDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.dao.product.ProductDAO;
 import com.epam.dao.user.UserDAO;
@@ -26,6 +27,11 @@ public class SybaseDAOFactory extends DAOFactory {
 
     @Override
     public UserDAO getUserDAO() {
+        return null;
+    }
+
+    @Override
+    public ClientDAO getClientDAO() {
         return null;
     }
 

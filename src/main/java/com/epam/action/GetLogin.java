@@ -6,7 +6,7 @@ import com.epam.config.Action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GetLoginAction extends AbstractCommand implements ActionCommand{
+public class GetLogin extends AbstractCommand implements ActionCommand{
 
     private Action action;
 
@@ -18,7 +18,7 @@ public class GetLoginAction extends AbstractCommand implements ActionCommand{
         this.action = action;
     }
 
-    public GetLoginAction(Action action) {
+    public GetLogin(Action action) {
       this.action=action;
 
     }

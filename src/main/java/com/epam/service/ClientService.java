@@ -50,4 +50,36 @@ public class ClientService {
         return clients;
     }
 
+    public static boolean unMarkAllClientsbyAdministrator() {
+
+        //String SqlSeqID="select seq_id.nextval from dual;";
+        String SqlUpd="update USER set blacklist=0 where nvl(deleted,0)!=1 and role=0;";
+
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        Connection cn=connectionPool.takeConnection();
+
+        PreparedStatement st=null;
+        try {
+            st=cn.prepareStatement(SqlUpd);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            int countRows = st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            cn.commit();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
 }

@@ -41,6 +41,7 @@ public class H2DAOFactory extends DAOFactory {
         return new H2AdministratorDAO();
     }
 
+    @Override
     public ClientDAO getClientDAO() {
         return new H2ClientDAO();
     }

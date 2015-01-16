@@ -31,18 +31,18 @@
 
 
     <action method="POST" path="/login">
-        <name>LoginAction</name>
+        <name>Login</name>
         <view>login</view>
     </action>
 
     <action method="GET" path="/login">
-        <name>GetLoginAction</name>
+        <name>GetLogin</name>
         <view>login</view>
     </action>
     >
 
     <action method="GET" path="/logout">
-        <name>LogoutAction</name>
+        <name>Logout</name>
         <view>indexforward</view>
     </action>
     <action method="GET" path="/do/client/createOrder">
