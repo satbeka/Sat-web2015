@@ -29,7 +29,7 @@ public class H2OrderDAO implements OrderDAO {
     public long insertOrder(Order order) {
         String SqlSeqID="select seq_id.nextval from dual;";
         String SqlInsert2="insert into CLIENT_ORDER(id,number,quantity,product,user,sum,sum_paid,insert_date," +
-                "deleted) values (?,?,?,?,?,0)";
+                "deleted) values (?,?,?,?,?,?,?,?,0)";
 
         Connection cn=this.connection;
         //Connection cn=
@@ -73,28 +73,41 @@ public class H2OrderDAO implements OrderDAO {
 
 
         try {
-            st2.setString(2, product.getName());
+            st2.setString(2, order.getNumber());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            st2.setInt(3, 1);  //active=1
+            st2.setInt(3, order.getQuantity());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            st2.setLong(4, order.getProduct().getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            st2.setLong(5, order.getClient().getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            st2.setBigDecimal(6, order.getSum());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            st2.setBigDecimal(7, order.getSumPaid());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         if (order.getInsertDate()==null){
-            //java.util.Date sysDate=new java.util.Date();
-            //Date sqlDate = new Date((new java.util.Date()).getTime());
             order.setInsertDate(new Date((new java.util.Date()).getTime()));
         }
-
         try {
-            st2.setDate(4, product.getInsertDate());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            st2.setBigDecimal(5, product.getPrice());
+            st2.setDate(8, order.getInsertDate());
         } catch (SQLException e) {
             e.printStackTrace();
         }

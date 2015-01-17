@@ -103,6 +103,10 @@ public class CommandFactory {
             actionCommand = new GetOrderList(result);
         }
         ;
+        if (result.getName().equals("SaveOrder")) {
+            actionCommand = new SaveOrder(result);
+        }
+        ;
 
         if (result.getName().toString() == "GetOrderList") {
             actionCommand = new Login();

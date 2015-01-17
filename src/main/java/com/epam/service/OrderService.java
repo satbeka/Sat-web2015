@@ -42,7 +42,7 @@ public class OrderService {
                 order.setSum(rs.getBigDecimal("SUM"));
                 order.setSumPaid(rs.getBigDecimal("SUM_PAID"));
                 //order.setClient(clientId);
-                order.setDate(rs.getDate("DATE"));
+                order.setInsertDate(rs.getDate("INSERT_DATE"));
 /*
                 ProductDAO productDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getProductDAO();
                 H2ProductDAO h2ProductDAO = (H2ProductDAO) productDAO;
