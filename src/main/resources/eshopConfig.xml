@@ -46,6 +46,13 @@
         <view>clientwhatdo</view>
     </action>
 
+    <action method="GET" path="/clientaddOrder">
+        <name>GetOrderList</name>
+        <view>clientaddorder</view>
+    </action>
+
+
+
 
     <action method="GET" path="/do/client/createOrder">
         <name>CreateOrderAction</name>
