@@ -11,10 +11,10 @@ public class GetOrderList extends AbstractCommand implements ActionCommand {
 
      @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
-         int clientId= (int) req.getSession().getAttribute("clientId");
+         Long clientId= Long.parseLong((String) req.getSession().getAttribute("clientId"));
          req.setAttribute("orderList", OrderService.findOrdersByClient(clientId));
          View view = new View(this.getAction().getView());
-         System.out.println("markclient ="+this.getAction().getView());
+         System.out.println("ordersclient ="+this.getAction().getView());
          return view;
     }
 

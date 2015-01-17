@@ -15,17 +15,17 @@ ${user33}
         <tr>
 
             <td><c:out value="${ elem.id }" /></td>
-            <td><c:out value="${ elem.name }" /></td>
-            <td><c:out value="${ elem.price }" /></td>
-            <td><c:out value="${ elem.insertDate }" /></td>
+            <td><c:out value="${ elem.NUMBER }" /></td>
+            <td><c:out value="${ elem.date }" /></td>
+            <td><c:out value="${ elem.sum }" /></td>
+            <td><c:out value="${ elem.sum_paid }" /></td>
+            <td><li><a href="<c:url value="/do/clientaddproduct"/>">Вход</a> добавить продукт</li></td>
 
         </tr>
     </c:forEach>
 </table>
-<form action="<c:url value="/do/clientaddorder"/>" method="post">
-    Name: <input type="text" name="name">
-    <br />
-    Price: <input type="text" name="quantity" />
+<form action="<c:url value="/do/clientlistorder"/>" method="post">
     <input type="submit" value="Submit" />
+    </form>
 </body>
 </html>

@@ -46,9 +46,9 @@
         <view>clientwhatdo</view>
     </action>
 
-    <action method="GET" path="/clientaddorder">
+    <action method="GET" path="/clientlistorder">
         <name>GetOrderList</name>
-        <view>clientaddorder</view>
+        <view>clientlistorder</view>
     </action>
 
 
