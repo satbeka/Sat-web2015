@@ -70,9 +70,12 @@ public class Login extends AbstractCommand implements ActionCommand{
         if (user.getClass().getSimpleName().equals("Client")) {
             req.getSession().setAttribute("ROLE", "CLIENT");
             req.getSession().setAttribute("user33", "Hello! CLIENT");
+            req.getSession().setAttribute("clientId", user.getId());
             view.setRedirect(true);
             view.setName("clientwhatdo");
             System.out.println("client view.getName()="+view.getName());
+            System.out.println("client clientId="+ user.getId());
+            req.getSession().setAttribute("clientId", user.getId());
             return view;
         }
         return view;

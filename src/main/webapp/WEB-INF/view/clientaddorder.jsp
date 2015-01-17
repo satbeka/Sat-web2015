@@ -11,7 +11,7 @@ ${user33}
 <br/>
 <a href="logout">Logout</a>
 <table>
-    <c:forEach var="elem" items="${lstOrders}">
+    <c:forEach var="elem" items="${orderList}">
         <tr>
 
             <td><c:out value="${ elem.id }" /></td>
