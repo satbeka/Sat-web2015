@@ -16,8 +16,8 @@
     </div>
 
     <ul>
-        <li><a href="/do/client/addorder" class="login-button">Вход</a> в корзину заказов</li>
-        <li><a href="/do/administratoreditproduct" class="login-button">Вход</a> в каталог продуктов</li>
+        <li><a href="/do/clientaddorder" class="login-button">Вход</a> в корзину заказов</li>
+        <li><a href="/do/clientpayorder" class="login-button">Вход</a> оплата заказа</li>
         <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов</li>
         <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов</li>
     </ul>

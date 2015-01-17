@@ -27,9 +27,6 @@
         <view>administratorclientlist</view>
     </action>
 
-
-
-
     <action method="POST" path="/login">
         <name>Login</name>
         <view>login</view>
@@ -39,12 +36,17 @@
         <name>GetLogin</name>
         <view>login</view>
     </action>
-    >
 
     <action method="GET" path="/logout">
         <name>Logout</name>
         <view>indexforward</view>
     </action>
+    <action method="GET" path="/clientwhatdo">
+        <name>ClientWhatDo</name>
+        <view>clientwhatdo</view>
+    </action>
+
+
     <action method="GET" path="/do/client/createOrder">
         <name>CreateOrderAction</name>
         <view>createorder</view>
@@ -61,10 +63,7 @@
         <name>DeleteOrderAction</name>
         <view>deleteorder</view>
     </action>
-    <action method="GET" path="/clientwhatdo">
-        <name>ClientWhatDo</name>
-        <view>clientwhatdo</view>
-    </action>
+
 
 
 </eshop>

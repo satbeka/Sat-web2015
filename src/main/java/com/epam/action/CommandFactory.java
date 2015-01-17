@@ -95,7 +95,10 @@ public class CommandFactory {
             actionCommand = new SaveClientList(result);
         }
         ;
-
+        if (result.getName().equals("ClientWhatDo")) {
+            actionCommand = new ClientWhatDo(result);
+        }
+        ;
 
 
         if (result.getName().toString() == "LoginAction") {
