@@ -99,9 +99,12 @@ public class CommandFactory {
             actionCommand = new ClientWhatDo(result);
         }
         ;
+        if (result.getName().equals("GetOrderList")) {
+            actionCommand = new GetOrderList(result);
+        }
+        ;
 
-
-        if (result.getName().toString() == "LoginAction") {
+        if (result.getName().toString() == "GetOrderList") {
             actionCommand = new Login();
         }
         ;
