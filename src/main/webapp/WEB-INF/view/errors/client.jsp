@@ -10,6 +10,7 @@
 <jsp:text>Client action is not correct! Please, Try again! </jsp:text>
 ${pricenotcorrect}
 ${idnotcorrect}
+${numbernotcorrect}
 <br/>
 ${ header["host"] }
 <a> servletName=  ${pageContext.servletConfig.servletName} </a>

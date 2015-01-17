@@ -64,12 +64,12 @@ public class Order implements Serializable {
         this.sumPaid = sumPaid;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getInsertDate() {
+        return insertDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setInsertDate(Date date) {
+        this.insertDate = date;
     }
 
     private String number;
@@ -78,7 +78,7 @@ public class Order implements Serializable {
     private Client client;
     private BigDecimal sum;
     private BigDecimal sumPaid;
-    private Date date;
+    private Date insertDate;
 
     @Override
     public int hashCode() {

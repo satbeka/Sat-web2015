@@ -25,6 +25,8 @@ ${user33}
     </c:forEach>
 </table>
 <form action="<c:url value="/do/clientlistorder"/>" method="post">
+    Number: <input type="text" name="NUMBER">
+    <br />
     <input type="submit" value="Submit" />
     </form>
 </body>

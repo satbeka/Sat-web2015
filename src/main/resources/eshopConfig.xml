@@ -50,7 +50,10 @@
         <name>GetOrderList</name>
         <view>clientlistorder</view>
     </action>
-
+    <action method="POST" path="/clientlistorder">
+        <name>SaveOrder</name>
+        <view>clientlistorder</view>
+    </action>
 
 
 

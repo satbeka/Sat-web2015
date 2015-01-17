@@ -7,7 +7,7 @@ import javax.sql.RowSet;
 import java.util.List;
 
 public interface OrderDAO {
-    public int insertOrder(Order order);
+    public long insertOrder(Order order);
     public boolean deleteOrder(Order order);
     public Order findOrderByName(String name);
     public Order findOrderById(long id);

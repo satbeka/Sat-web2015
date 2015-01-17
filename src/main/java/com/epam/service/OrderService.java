@@ -63,5 +63,33 @@ public class OrderService {
         return orders;
     }
 
+    public static Long getMaxIdOrderByClient(Long clientId) {
+        Long id= Long.valueOf(0);
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection cn = connectionPool.takeConnection();
+
+        PreparedStatement st = null;
+        try {
+            st = cn.prepareStatement("select max (id) from client_order where user =? and nvl(deleted,0)!=1;");
+            st.setLong(1, clientId);
+        } catch (SQLException e) {
+            //TODO log;
+        }
+
+        ResultSet rs = null;
+        try {
+            rs = st.executeQuery();
+            connectionPool.releaseConnection(cn);
+            while (rs.next()) {
+                id=rs.getLong(1);
+                return id;
+            }
+            //return administrator;
+
+        } catch (SQLException e) {
+            //TODO log
+        }
+        return id;
+    }
 
 }
