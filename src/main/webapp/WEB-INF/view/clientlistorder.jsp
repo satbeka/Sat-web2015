@@ -13,19 +13,20 @@ ${user33}
 <table>
     <c:forEach var="elem" items="${orderList}">
         <tr>
-
-            <td><c:out value="${ elem.id }" /></td>
-            <td><c:out value="${ elem.NUMBER }" /></td>
-            <td><c:out value="${ elem.date }" /></td>
+            
+            <td><c:out value="${ elem.number }" /></td>
+            <td><c:out value="${ elem.insertDate }" /></td>
             <td><c:out value="${ elem.sum }" /></td>
-            <td><c:out value="${ elem.sum_paid }" /></td>
-            <td><li><a href="<c:url value="/do/clientaddproduct"/>">Вход</a> добавить продукт</li></td>
+            <td><c:out value="${ elem.sumPaid }" /></td>
+            <td><li><a href="<c:url value="/do/clientaddproduct"/>">Вход</a> добавить продукт в Ордер</li></td>
+            <td><c:set var="elemId" value="${ elem.id }" scope="page"/></td>
+            
 
         </tr>
     </c:forEach>
 </table>
 <form action="<c:url value="/do/clientlistorder"/>" method="post">
-    Number: <input type="text" name="NUMBER">
+    Укажите, Ваш Номер ордера (или система создаст его сама): <input type="text" name="NUMBER">
     <br />
     <input type="submit" value="Submit" />
     </form>

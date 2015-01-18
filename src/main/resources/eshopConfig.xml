@@ -54,17 +54,17 @@
         <name>SaveOrder</name>
         <view>clientlistorder</view>
     </action>
-
-
-
-    <action method="GET" path="/do/client/createOrder">
-        <name>CreateOrderAction</name>
-        <view>createorder</view>
+    <action method="GET" path="/clientaddproduct">
+        <name>GetProductListForOrder</name>
+        <view>clientaddproduct</view>
     </action>
-    <action method="POST" path="/do/client/confimOrder">
-        <name>ConfimOrderAction</name>
-        <view>confirmorder</view>
+    <action method="POST" path="/clientaddproduct">
+        <name>SaveProductListForOrder</name>
+        <view>clientaddproduct</view>
     </action>
+
+
+
     <action method="GET" path="/do/client/payOrder">
         <name>PayOrderAction</name>
         <view>payorder</view>

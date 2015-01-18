@@ -7,6 +7,7 @@ import com.epam.dao.order.OrderDAO;
 import com.epam.dao.product.H2ProductDAO;
 import com.epam.dao.product.ProductDAO;
 import com.epam.db.ConnectionPool;
+import com.epam.model.Client;
 import com.epam.model.Order;
 import com.epam.model.Product;
 import com.epam.service.OrderService;
@@ -31,7 +32,9 @@ public class SaveOrder extends AbstractCommand implements ActionCommand{
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
         String number=req.getParameter("NUMBER");
         Long clientId= Long.parseLong(req.getSession().getAttribute("clientId").toString());
-        if (number.isEmpty()){number= OrderService.getMaxIdOrderByClient(clientId).toString();};
+        Long numberId=OrderService.getMaxIdOrderByClient(clientId);
+        numberId++;
+        if (number.isEmpty()){number= numberId.toString();};
         //String price=req.getParameter("price");
         View view = new View(this.getAction().getView());
         if (!Validator.isLoginCorrect(number)){
@@ -48,6 +51,9 @@ public class SaveOrder extends AbstractCommand implements ActionCommand{
         order.setSumPaid(BigDecimal.valueOf(0));
         order.setSum(BigDecimal.valueOf(0));
         order.setNumber(number);
+        Client client=new Client();
+        client.setId(clientId);
+        order.setClient(client);
 
         long id=h2OrderDAO.insertOrder(order);
         if (id == -1) {
