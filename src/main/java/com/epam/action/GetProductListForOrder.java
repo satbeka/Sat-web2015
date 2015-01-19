@@ -10,6 +10,7 @@ public class GetProductListForOrder extends AbstractCommand implements ActionCom
 
      @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
+         System.out.println(req.getSession().getAttribute("orderId").toString());
          Long orderId= Long.parseLong(req.getSession().getAttribute("orderId").toString());
 
          req.setAttribute("productList", ProductService.findProductsForOrder(orderId));

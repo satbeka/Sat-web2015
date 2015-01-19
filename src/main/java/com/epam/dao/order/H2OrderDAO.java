@@ -32,10 +32,10 @@ public class H2OrderDAO implements OrderDAO {
     }
 
     @Override
-    public long insertOrder(Order order) {
+    public long insertBlankOrder(Order order) {
         String SqlSeqID = "select seq_id.nextval from dual;";
-        String SqlInsert2 = "insert into CLIENT_ORDER(id,number,quantity,product,user,sum,sum_paid,insert_date," +
-                "deleted) values (?,?,?,?,?,?,?,?,0)";
+        String SqlInsert2 = "insert into CLIENT_ORDER(id,number,quantity,user,sum,sum_paid,insert_date,deleted)" +
+                " values (?,?,0,?,0,0,?,0)";
 
         Connection cn = this.connection;
         //Connection cn=
@@ -83,14 +83,16 @@ public class H2OrderDAO implements OrderDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        /*
         try {
             st2.setInt(3, order.getQuantity());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        */
+        /*
         //long productId;// = Long.parseLong(null);//Long.parseLong(null);
-        if (order.getProduct() != null) {
+        if (order.getProducts().getProduct() != null) {
             try {
                 st2.setLong(4, order.getProduct().getId());
             } catch (SQLException e) {
@@ -104,16 +106,17 @@ public class H2OrderDAO implements OrderDAO {
             }
         }
         ;
+        */
 
         if (order.getClient() != null) {
             try {
-                st2.setLong(5, order.getClient().getId());
+                st2.setLong(3, order.getClient().getId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
             try {
-                st2.setNull(5, Types.BIGINT);
+                st2.setNull(3, Types.BIGINT);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -131,21 +134,24 @@ public class H2OrderDAO implements OrderDAO {
         }
 */
 
+        /*
         try {
-            st2.setBigDecimal(6, order.getSum());
+            st2.setBigDecimal(5, order.getSum());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            st2.setBigDecimal(7, order.getSumPaid());
+            st2.setBigDecimal(5, order.getSumPaid());
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        */
+
         if (order.getInsertDate() == null) {
             order.setInsertDate(new Date((new java.util.Date()).getTime()));
         }
         try {
-            st2.setDate(8, order.getInsertDate());
+            st2.setDate(4, order.getInsertDate());
         } catch (SQLException e) {
             e.printStackTrace();
         }

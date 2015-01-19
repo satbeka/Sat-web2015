@@ -49,5 +49,39 @@ public class ProductService {
 
         return products;
     }
+    public static ArrayList<Product> findProductsForOrder(Long orderId) {
+        ArrayList<Product> products=new ArrayList<Product>();
+
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        Connection cn=connectionPool.takeConnection();
+
+        PreparedStatement st = null;
+        try {
+            st = cn.prepareStatement("select * from product where nvl(deleted,0)!=1;");
+            //st.setString(1,client.getName());
+        } catch (SQLException e) {
+            //TODO log;
+        }
+
+        ResultSet rs = null;
+        try {
+            rs=st.executeQuery();
+            connectionPool.releaseConnection(cn);
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getLong("ID"));
+                product.setName(rs.getString("NAME"));
+                product.setInsertDate(rs.getDate("INSERT_DATE"));
+                product.setPrice(rs.getBigDecimal("PRICE"));
+                products.add(product);
+            }
+            //return administrator;
+
+        } catch (SQLException e) {
+            //TODO log
+        }
+
+        return products;
+    }
 
 }

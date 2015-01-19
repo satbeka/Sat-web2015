@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 
 
-public class SaveOrder extends AbstractCommand implements ActionCommand{
+public class SaveBlankOrder extends AbstractCommand implements ActionCommand{
     public Action getAction() {
         return action;
     }
@@ -55,7 +55,7 @@ public class SaveOrder extends AbstractCommand implements ActionCommand{
         client.setId(clientId);
         order.setClient(client);
 
-        long id=h2OrderDAO.insertOrder(order);
+        long id=h2OrderDAO.insertBlankOrder(order);
         if (id == -1) {
             //req.setAttribute();
             view.setName("errors/client");
@@ -67,8 +67,8 @@ public class SaveOrder extends AbstractCommand implements ActionCommand{
     };
 
 
-    public SaveOrder() {};
-    public SaveOrder(Action action){
+    public SaveBlankOrder() {};
+    public SaveBlankOrder(Action action){
         this.action=action;
     };
 

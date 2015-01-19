@@ -19,7 +19,7 @@ ${user33}
             <td><c:out value="${ elem.sum }" /></td>
             <td><c:out value="${ elem.sumPaid }" /></td>
             <td><li><a href="<c:url value="/do/clientaddproduct"/>">Вход</a> добавить продукт в Ордер</li></td>
-            <td><c:set var="elemId" value="${ elem.id }" scope="page"/></td>
+            <td><c:set var="orderId" value="${ elem.id }" scope="page"/></td>
             
 
         </tr>

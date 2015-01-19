@@ -51,7 +51,7 @@
         <view>clientlistorder</view>
     </action>
     <action method="POST" path="/clientlistorder">
-        <name>SaveOrder</name>
+        <name>SaveBlankOrder</name>
         <view>clientlistorder</view>
     </action>
     <action method="GET" path="/clientaddproduct">
