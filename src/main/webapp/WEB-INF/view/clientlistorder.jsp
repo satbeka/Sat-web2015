@@ -18,9 +18,15 @@ ${user33}
             <td><c:out value="${ elem.insertDate }" /></td>
             <td><c:out value="${ elem.sum }" /></td>
             <td><c:out value="${ elem.sumPaid }" /></td>
-            <td><li><a href="<c:url value="/do/clientaddproduct"/>">Вход</a> добавить продукт в Ордер</li></td>
+            <td><li><a href="<c:url value="/do/clientaddproduct?id=${ elem.id }"/>">Вход</a> добавить продукт в Ордер</li></td>
+            <td>
+                <form method="GET" action="<c:url value="/do/clientaddproduct"/>">
+                <input type="hidden" name="id" value="${ elem.id }">
+                <button type="submit" class="Order">добавить продукт в Ордер</button>
+                </form>
+            </td>
             <td><c:set var="orderId" value="${ elem.id }" scope="session"/></td>
-
+            <td><c:out value="orderId=${ elem.id }"/></td>
         </tr>
     </c:forEach>
 </table>

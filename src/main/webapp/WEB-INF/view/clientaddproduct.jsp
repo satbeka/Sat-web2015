@@ -9,7 +9,7 @@
 ${user33}
 <br/>
 <a href="logout">Logout</a>
-<td><c:out value="orderId"/></td>
+<td><c:out value="${orderId}"/></td>
 <table>
     <c:forEach var="elem" items="${productList}">
         <tr>
@@ -32,7 +32,7 @@ ${user33}
     </c:forEach>
 </table>
 <form action="<c:url value="/do/clientaddproduct"/>" method="post">
-    <input type="submit" value="Submit">Save</input>
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>

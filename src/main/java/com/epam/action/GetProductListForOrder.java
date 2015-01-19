@@ -12,6 +12,7 @@ public class GetProductListForOrder extends AbstractCommand implements ActionCom
      @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
          //Object atrr=req.getSession().getAttribute("orderId");
+         String[] listMarkId = req.getParameterValues("orderId");
          System.out.println(req.getSession().getAttribute("orderId").toString());
          Long orderId= Long.parseLong(req.getSession().getAttribute("orderId").toString());
 
