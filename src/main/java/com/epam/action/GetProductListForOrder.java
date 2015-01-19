@@ -12,10 +12,11 @@ public class GetProductListForOrder extends AbstractCommand implements ActionCom
      @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
          //Object atrr=req.getSession().getAttribute("orderId");
-         String[] listMarkId = req.getParameterValues("orderId");
-         System.out.println(req.getSession().getAttribute("orderId").toString());
-         Long orderId= Long.parseLong(req.getSession().getAttribute("orderId").toString());
-
+         //System.out.println("req.getRequestURI()="+req.getRequestURI());
+         //String[] listMarkId = req.getParameterValues("orderId");
+         System.out.println("req.getQueryString()="+req.getQueryString());
+         Long orderId= Long.parseLong(req.getQueryString().toString().replace("orderId=",""));
+         req.getSession().setAttribute("orderId",orderId);
          req.setAttribute("productList", ProductExtQuantityService.findProductsForOrder(orderId));
          View view = new View(this.getAction().getView());
          System.out.println("GetProductListForOrder="+this.getAction().getView());

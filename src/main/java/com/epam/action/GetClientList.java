@@ -13,7 +13,7 @@ public class GetClientList extends AbstractCommand implements ActionCommand {
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
          req.setAttribute("lst", ClientService.findClientsByAdministrator());
          View view = new View(this.getAction().getView());
-         System.out.println("markclient ="+this.getAction().getView());
+         System.out.println("GetClientList ="+this.getAction().getView());
          return view;
     }
 

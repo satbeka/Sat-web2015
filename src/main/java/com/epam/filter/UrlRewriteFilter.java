@@ -52,7 +52,7 @@ public class UrlRewriteFilter implements Filter{
         String path = request.getRequestURI().substring(request.getContextPath().length());
         System.out.println("path in rewr filter=" + path);
 
-        path=UrlRewriteFilter.pathWithoutId(path,request);
+        //path=UrlRewriteFilter.pathWithoutId(path,request);
         if (path.startsWith("/do/")) {
             System.out.println("req.getRequestDispatcher= " + path.replace("/do/",""));
             req.getRequestDispatcher(path.replace("/do/","")).forward(req, res);
