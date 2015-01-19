@@ -22,7 +22,12 @@ ${user33}
             <td>Quantity: <input type="text" name="quantity" value="${ elem.quantity }">
             </td>
             <td>
-                <input type="checkbox" name="productId"
+                <input type="hidden" type="text" name="productId"
+                       value="${elem.id}"
+                        >
+            </td>
+            <td>
+                <input type="checkbox" name="markId"
                         <c:if test="${ elem.quantity!=0 }">checked="checked"</c:if>
                        value="${elem.id}"
                         />

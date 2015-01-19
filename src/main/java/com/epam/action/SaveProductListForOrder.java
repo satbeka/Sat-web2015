@@ -30,7 +30,7 @@ public class SaveProductListForOrder extends AbstractCommand implements ActionCo
 
         //req.getSession().setAttribute("orderId",orderId);
         String[] productList = req.getParameterValues("quantity");
-        String[] productList2 =req.getParameterValues("productId");
+        String[] productIdquantityList =req.getParameterValues("productId");
                 //Long.parseLong(req.getSession().getAttribute("productId").toString());
         View view = new View(this.getAction().getView());
         if (!ClientService.unMarkAllClientsbyAdministrator()){
