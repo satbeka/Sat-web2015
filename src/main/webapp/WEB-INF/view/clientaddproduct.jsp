@@ -18,15 +18,13 @@ ${user33}
             <td><c:out value="${ elem.name }"/></td>
             <td><c:out value="${ elem.price }"/></td>
             <td>
-                <li>Quantity: <input type="text" name="quantity" value="${ elem.quantity }"> /></li>
+                <li>Quantity: <input type="text" name="quantity" value="${ elem.quantity }">    </li>
             </td>
             <td>
                 <input type="checkbox" name="MarkId"
-                        <c:if test="${ elem.mark==1 }">
-                            checked="checked"
-                        </c:if>
+                        <c:if test="${ elem.quantity!=0 }">checked="checked"</c:if>
                        value="${elem.id}"
-                        /> Mark
+                        />
             </td>
 
 
