@@ -11,6 +11,7 @@ ${user33}
 <a href="logout">Logout</a>
 <li><c:out value="orderId=${orderId}"/></li>
 <li><c:out value="clientId=${clientId}"/></li>
+<form id="productlist" action="<c:url value="/do/clientaddproduct"/>" method="post">
 <table>
     <c:forEach var="elem" items="${productList}">
         <tr>
@@ -18,11 +19,10 @@ ${user33}
             <td><c:out value="${ elem.id }"/></td>
             <td><c:out value="${ elem.name }"/></td>
             <td><c:out value="${ elem.price }"/></td>
-            <td>
-                <li>Quantity: <input type="text" name="quantity" value="${ elem.quantity }">    </li>
+            <td>Quantity: <input type="text" name="quantity" value="${ elem.quantity }">
             </td>
             <td>
-                <input type="checkbox" name="MarkId"
+                <input type="checkbox" name="productId"
                         <c:if test="${ elem.quantity!=0 }">checked="checked"</c:if>
                        value="${elem.id}"
                         />
@@ -32,8 +32,9 @@ ${user33}
         </tr>
     </c:forEach>
 </table>
-<form action="<c:url value="/do/clientaddproduct"/>" method="post">
-    <input type="submit" value="Save"/>
 </form>
+<tr>
+    <button type="submit" class="button" form="productlist">Save Product</button>
+</tr>
 </body>
 </html>
