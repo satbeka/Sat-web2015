@@ -17,6 +17,9 @@ public class GetProductListForOrder extends AbstractCommand implements ActionCom
          System.out.println("req.getQueryString()="+req.getQueryString());
          Long orderId= Long.parseLong(req.getQueryString().toString().replace("orderId=",""));
          req.getSession().setAttribute("orderId",orderId);
+         //String orderNumber=req.getQueryString().toString().replace("orderNumber=","");
+         //req.getSession().setAttribute("orderNumber",orderNumber);
+
          req.setAttribute("productList", ProductExtQuantityService.findProductsForOrder(orderId));
          View view = new View(this.getAction().getView());
          System.out.println("GetProductListForOrder="+this.getAction().getView());

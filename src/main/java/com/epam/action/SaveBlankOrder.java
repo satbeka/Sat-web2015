@@ -48,8 +48,8 @@ public class SaveBlankOrder extends AbstractCommand implements ActionCommand{
         H2OrderDAO h2OrderDAO=(H2OrderDAO)orderDAO;
         h2OrderDAO.setConnection(connectionPool);
         Order order=new Order();
-        order.setSumPaid(BigDecimal.valueOf(0));
-        order.setSum(BigDecimal.valueOf(0));
+        //order.setSumPaid(BigDecimal.valueOf(0));
+        //order.setSum(BigDecimal.valueOf(0));
         order.setNumber(number);
         Client client=new Client();
         client.setId(clientId);

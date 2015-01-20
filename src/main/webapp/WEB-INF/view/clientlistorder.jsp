@@ -18,8 +18,6 @@ ${user33}
             
             <td><c:out value="${ elem.number }" /></td>
             <td><fmt:formatDate pattern="dd-MM-yyyy" value="${ elem.insertDate }" /></td>
-            <td><c:out value="${ elem.sum }" /></td>
-            <td><c:out value="${ elem.sumPaid }" /></td>
             <td><li><a href="<c:url value="/do/clientaddproduct?orderId=${ elem.id }"/>">Вход</a> добавить продукт в Ордер</li></td>
             <td>
                 <form method="GET" action="<c:url value="/do/clientaddproduct"/>">

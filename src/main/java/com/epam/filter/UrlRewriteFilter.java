@@ -16,22 +16,24 @@ public class UrlRewriteFilter implements Filter{
     }
 
     public static String pathWithoutId(String path,HttpServletRequest request) {
-        //String path="/0144550003/88888/do/clientaddproduct";
-        if (path.endsWith("clientaddproduct")) {
-            Pattern regexp = Pattern.compile("/\\d+");
+        //String path="do/clientaddproduct&444";
+        if (path.contains("orderId=")) {
+            Pattern regexp = Pattern.compile("=\\d+");
             Matcher m2 = regexp.matcher(path);
             while (m2.find()) {
-                String orderId = m2.group().replace("/", "");
+                String orderId = m2.group().replace("=", "");
                 request.getSession().setAttribute("orderId", orderId);
-                System.out.println("orderId: " + m2.group().replace("/", ""));
+                System.out.println("orderId: " + m2.group().replace("=", ""));
             }
-            String[] words = regexp.split(path);
+            //String[] words = regexp.split(path);
             String rez = path;
+            /*
             for (String word : words) {
                 rez = word;
                 System.out.println("word=" + word);
             }
             System.out.println("rez=" + rez);
+            */
             return rez;
         }
         return path;

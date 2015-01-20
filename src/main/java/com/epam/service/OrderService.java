@@ -39,8 +39,8 @@ public class OrderService {
                 Order order = new Order();
                 order.setId(rs.getLong(1));
                 order.setNumber(rs.getString("NUMBER"));
-                order.setSum(rs.getBigDecimal("SUM"));
-                order.setSumPaid(rs.getBigDecimal("SUM_PAID"));
+                //order.setSum(rs.getBigDecimal("SUM"));
+                //order.setSumPaid(rs.getBigDecimal("SUM_PAID"));
                 //order.setClient(clientId);
                 order.setInsertDate(rs.getDate("INSERT_DATE"));
                 System.out.println("InsertDate="+order.getInsertDate().toString());

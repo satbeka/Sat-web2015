@@ -2,6 +2,7 @@ package com.epam.dao.order;
 
 import com.epam.db.ConnectionPool;
 import com.epam.model.Order;
+import com.epam.model.ProductExtQuantity;
 
 import javax.sql.RowSet;
 import java.sql.*;
@@ -34,8 +35,8 @@ public class H2OrderDAO implements OrderDAO {
     @Override
     public long insertBlankOrder(Order order) {
         String SqlSeqID = "select seq_id.nextval from dual;";
-        String SqlInsert2 = "insert into CLIENT_ORDER(id,number,quantity,user,sum,sum_paid,insert_date,deleted)" +
-                " values (?,?,0,?,0,0,?,0)";
+        String SqlInsert2 = "insert into CLIENT_ORDER(id,number,user,insert_date,deleted)" +
+                " values (?,?,?,?,0)";
 
         Connection cn = this.connection;
         //Connection cn=
@@ -83,30 +84,6 @@ public class H2OrderDAO implements OrderDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*
-        try {
-            st2.setInt(3, order.getQuantity());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
-        /*
-        //long productId;// = Long.parseLong(null);//Long.parseLong(null);
-        if (order.getProducts().getProduct() != null) {
-            try {
-                st2.setLong(4, order.getProduct().getId());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                st2.setNull(4, Types.BIGINT);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        ;
-        */
 
         if (order.getClient() != null) {
             try {
@@ -122,30 +99,6 @@ public class H2OrderDAO implements OrderDAO {
             }
         }
         ;
-
-
-/*
-        if (order.getClient() != null) {
-            try {
-                st2.setLong(5, order.getClient().getId());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-*/
-
-        /*
-        try {
-            st2.setBigDecimal(5, order.getSum());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            st2.setBigDecimal(5, order.getSumPaid());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
 
         if (order.getInsertDate() == null) {
             order.setInsertDate(new Date((new java.util.Date()).getTime()));
@@ -190,9 +143,96 @@ public class H2OrderDAO implements OrderDAO {
     public Order findOrderById(long id) {
         return null;
     }
+    public String getOrderNumberById(long id){
+     String orderNumber=null;
+        Connection cn = this.connection;
+        String SqlSelect = "select * from CLIENT_ORDER where id=" +  id;
+        try {
+            cn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        Statement st = null;
+        try {
+            st = cn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ResultSet rs = null;
+        try {
+            rs=st.executeQuery(SqlSelect);
+            rs.next();
+            orderNumber=rs.getString("NUMBER");
+            return orderNumber;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return orderNumber;
+    }
     @Override
     public boolean updateOrder(Order order) {
+        //String SqlSeqID = "select seq_id.nextval from dual;";
+        if (order==null){return true;}
+        Connection cn = this.connection;
+        if (order.getProducts().size()>0){
+            for (ProductExtQuantity productExtQuantity:order.getProducts()){
+
+                String SqlInsert2 = "insert into ORDER_DETAIL(client_order,quantity,product,sum,sum_paid,deleted)" +
+                        " values (?,?,?,0,0,0)";
+
+                PreparedStatement st2 = null;
+                try {
+                    st2 = cn.prepareStatement(SqlInsert2);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    st2.setLong(1, order.getId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    st2.setInt(2, productExtQuantity.getQuantity());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                        st2.setLong(3, productExtQuantity.getId());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                ;
+
+
+                try {
+                    int countRows = st2.executeUpdate();
+                    if (countRows == 0) {
+                        return false;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+        try {
+            cn.commit();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+
         return false;
     }
 

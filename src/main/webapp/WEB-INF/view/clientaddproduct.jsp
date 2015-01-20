@@ -39,7 +39,7 @@ ${user33}
 </table>
 </form>
 <tr>
-    <button type="submit" class="button" form="productlist">Save Product</button>
+    <button type="submit" class="button" form="productlist">Save Product List</button>
 </tr>
 </body>
 </html>

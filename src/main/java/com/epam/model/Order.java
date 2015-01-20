@@ -13,6 +13,10 @@ public class Order implements Serializable {
         return products.add(productExtQuantity);
     }
 
+    public void initProducts() {
+        products = new ArrayList();
+    }
+
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
@@ -28,10 +32,10 @@ public class Order implements Serializable {
         super.finalize();
     }
 
-    public boolean remove(Product productRemove) {
-        for (Product product : products) {
-            if (product.getId() == productRemove.getId()) {
-                return products.remove(product);
+    public boolean remove(ProductExtQuantity productExtQuantityRemove) {
+        for (ProductExtQuantity productExtQuantity : products) {
+            if (productExtQuantity.getId() == productExtQuantityRemove.getId()) {
+                return products.remove(productExtQuantity);
             }
         }
         return false;
@@ -59,36 +63,12 @@ public class Order implements Serializable {
         this.number = number;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public BigDecimal getSum() {
-        return sum;
-    }
-
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
-    }
-
-    public BigDecimal getSumPaid() {
-        return sumPaid;
-    }
-
-    public void setSumPaid(BigDecimal sumPaid) {
-        this.sumPaid = sumPaid;
     }
 
     public Date getInsertDate() {
@@ -100,11 +80,9 @@ public class Order implements Serializable {
     }
 
     private String number;
-    private int quantity;
+    //private int quantity;
     //private Product product;
     private Client client;
-    private BigDecimal sum;
-    private BigDecimal sumPaid;
     private Date insertDate;
 
     @Override
