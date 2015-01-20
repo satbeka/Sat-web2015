@@ -180,6 +180,24 @@ public class H2OrderDAO implements OrderDAO {
         if (order==null){return true;}
         Connection cn = this.connection;
         if (order.getProducts().size()>0){
+            String SqlUpdate1 = "update ORDER_DETAIL set deleted=1 where client_order="+order.getId();
+            PreparedStatement st1 = null;
+            try {
+                st1 = cn.prepareStatement(SqlUpdate1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                int countRows = st1.executeUpdate();
+                if (countRows == 0) {
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
             for (ProductExtQuantity productExtQuantity:order.getProducts()){
 
                 String SqlInsert2 = "insert into ORDER_DETAIL(client_order,quantity,product,sum,sum_paid,deleted)" +

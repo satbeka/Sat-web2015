@@ -72,12 +72,7 @@ public class SaveProductListForOrder extends AbstractCommand implements ActionCo
 
 
                 //Long.parseLong(req.getSession().getAttribute("productId").toString());
-        View view = new View(this.getAction().getView());
-        if (!ClientService.unMarkAllClientsbyAdministrator()){
-            view.setName("errors/client");
-            req.getSession().setAttribute("markidnotcorrect", " UnMark All Clients is not possible!=");
-            return view;
-        };
+        View view = new View("/do/clientlistorder");
         view.setRedirect(true);
         System.out.println(" SaveProductListForOrder view.getName()=" + view.getName());
         return view;

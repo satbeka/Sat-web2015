@@ -1,5 +1,5 @@
 package com.epam.service;
-//init Quantity=0 Sat190115
+
 
 import com.epam.db.ConnectionPool;
 import com.epam.model.Product;
@@ -23,9 +23,11 @@ public class ProductExtQuantityService {
 
         PreparedStatement st = null;
         try {
-            st = cn.prepareStatement("select p.*,o.QUANTITY from product p\n" +
-                    "left OUTER join order_detail o on p.ID=o.PRODUCT \n" +
-                    "where nvl(p.deleted,0)!=1;");
+            st = cn.prepareStatement(
+            " select p.*,o.QUANTITY from product p left OUTER join " +
+            " order_detail o on p.ID=o.PRODUCT and o.client_order=" +orderId.toString()+
+            " where nvl(p.deleted,0)!=1;"
+            );
             //st.setString(1,client.getName());
         } catch (SQLException e) {
             //TODO log;
@@ -41,7 +43,7 @@ public class ProductExtQuantityService {
                 productExtQuantity.setName(rs.getString("NAME"));
                 productExtQuantity.setInsertDate(rs.getDate("INSERT_DATE"));
                 productExtQuantity.setPrice(rs.getBigDecimal("PRICE"));
-                productExtQuantity.setQuantity(0); //init Quantity Sat190115
+                productExtQuantity.setQuantity(rs.getInt("QUANTITY"));
                 products.add(productExtQuantity);
             }
             //return administrator;
