@@ -72,7 +72,7 @@ public class SaveProductListForOrder extends AbstractCommand implements ActionCo
 
 
                 //Long.parseLong(req.getSession().getAttribute("productId").toString());
-        View view = new View("/do/clientlistorder");
+        View view = new View(this.getAction().getView());
         view.setRedirect(true);
         System.out.println(" SaveProductListForOrder view.getName()=" + view.getName());
         return view;
