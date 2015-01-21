@@ -25,7 +25,7 @@ public class ProductExtQuantityService {
         try {
             st = cn.prepareStatement(
             " select p.*,o.QUANTITY from product p left OUTER join " +
-            " order_detail o on p.ID=o.PRODUCT and o.client_order=" +orderId.toString()+
+            " order_detail o on p.ID=o.PRODUCT and nvl(o.deleted,0)!=1 and o.client_order=" +orderId.toString()+
             " where nvl(p.deleted,0)!=1;"
             );
             //st.setString(1,client.getName());

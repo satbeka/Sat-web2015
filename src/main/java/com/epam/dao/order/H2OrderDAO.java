@@ -181,6 +181,11 @@ public class H2OrderDAO implements OrderDAO {
         Connection cn = this.connection;
         if (order.getProducts().size()>0){
             String SqlUpdate1 = "update ORDER_DETAIL set deleted=1 where client_order="+order.getId();
+            try {
+                cn.setAutoCommit(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             PreparedStatement st1 = null;
             try {
                 st1 = cn.prepareStatement(SqlUpdate1);
@@ -190,11 +195,14 @@ public class H2OrderDAO implements OrderDAO {
 
             try {
                 int countRows = st1.executeUpdate();
-                if (countRows == 0) {
-                    return false;
-                }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+            try {
+                cn.commit();
+                //return true;
+            } catch (SQLException e) {
+                System.out.println(e.toString());
             }
 
 
@@ -203,6 +211,11 @@ public class H2OrderDAO implements OrderDAO {
                 String SqlInsert2 = "insert into ORDER_DETAIL(client_order,quantity,product,sum,sum_paid,deleted)" +
                         " values (?,?,?,0,0,0)";
 
+                try {
+                    cn.setAutoCommit(false);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 PreparedStatement st2 = null;
                 try {
                     st2 = cn.prepareStatement(SqlInsert2);
@@ -234,6 +247,7 @@ public class H2OrderDAO implements OrderDAO {
                 try {
                     int countRows = st2.executeUpdate();
                     if (countRows == 0) {
+                        cn.rollback();
                         return false;
                     }
                 } catch (SQLException e) {

@@ -66,13 +66,17 @@ public class SaveProductListForOrder extends AbstractCommand implements ActionCo
         }
 
 
+        View view = new View(this.getAction().getView());
         h2OrderDAO.setConnection(connectionPool);
-        h2OrderDAO.updateOrder(order);
+        if (!h2OrderDAO.updateOrder(order)){
+            h2OrderDAO.closeConnection(connectionPool);
+            view.setName("errors/client");
+            return view;
+
+
+        };
         h2OrderDAO.closeConnection(connectionPool);
 
-
-                //Long.parseLong(req.getSession().getAttribute("productId").toString());
-        View view = new View(this.getAction().getView());
         view.setRedirect(true);
         System.out.println(" SaveProductListForOrder view.getName()=" + view.getName());
         return view;
