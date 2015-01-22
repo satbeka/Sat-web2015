@@ -62,6 +62,14 @@
         <name>SaveProductListForOrder</name>
         <view>/do/clientlistorder</view>
     </action>
+    <action method="POST" path="/clientlistorder">
+        <name>PayOrder</name>
+        <view>clientlistorder</view>
+    </action>
+
+
+
+
 
 
 

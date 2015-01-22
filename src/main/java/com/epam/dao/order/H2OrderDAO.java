@@ -5,6 +5,7 @@ import com.epam.model.Order;
 import com.epam.model.ProductExtQuantity;
 
 import javax.sql.RowSet;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 
@@ -143,10 +144,11 @@ public class H2OrderDAO implements OrderDAO {
     public Order findOrderById(long id) {
         return null;
     }
-    public String getOrderNumberById(long id){
-     String orderNumber=null;
+
+    public String getOrderNumberById(long id) {
+        String orderNumber = null;
         Connection cn = this.connection;
-        String SqlSelect = "select * from CLIENT_ORDER where id=" +  id;
+        String SqlSelect = "select * from CLIENT_ORDER where id=" + id;
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
@@ -162,9 +164,9 @@ public class H2OrderDAO implements OrderDAO {
 
         ResultSet rs = null;
         try {
-            rs=st.executeQuery(SqlSelect);
+            rs = st.executeQuery(SqlSelect);
             rs.next();
-            orderNumber=rs.getString("NUMBER");
+            orderNumber = rs.getString("NUMBER");
             return orderNumber;
 
         } catch (SQLException e) {
@@ -174,12 +176,15 @@ public class H2OrderDAO implements OrderDAO {
 
         return orderNumber;
     }
+
     @Override
     public boolean updateOrder(Order order) {
         //String SqlSeqID = "select seq_id.nextval from dual;";
-        if (order==null){return true;}
+        if (order == null) {
+            return true;
+        }
         Connection cn = this.connection;
-        String SqlUpdate1 = "update ORDER_DETAIL set deleted=1,quantity=0 where client_order="+order.getId();
+        String SqlUpdate1 = "update ORDER_DETAIL set deleted=1,quantity=0 where client_order=" + order.getId();
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
@@ -205,8 +210,8 @@ public class H2OrderDAO implements OrderDAO {
         }
 
 
-        if (order.getProducts().size()>0){
-            for (ProductExtQuantity productExtQuantity:order.getProducts()){
+        if (order.getProducts().size() > 0) {
+            for (ProductExtQuantity productExtQuantity : order.getProducts()) {
                 String SqlInsert2 = "insert into ORDER_DETAIL(client_order,quantity,product,sum,sum_paid,deleted)" +
                         " values (?,?,?,0,0,0)";
 
@@ -236,10 +241,10 @@ public class H2OrderDAO implements OrderDAO {
                 }
 
                 try {
-                        st2.setLong(3, productExtQuantity.getId());
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    st2.setLong(3, productExtQuantity.getId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 ;
 
 
@@ -264,6 +269,70 @@ public class H2OrderDAO implements OrderDAO {
             System.out.println(e.toString());
         }
 
+        return false;
+    }
+
+    public boolean payOrder(Order order) {
+        //String SqlSeqID = "select seq_id.nextval from dual;";
+        if (order == null) {
+            return true;
+        }
+        Connection cn = this.connection;
+        String SqlSelect = "select sum(o.QUANTITY*p.PRICE) from product p\n" +
+                "  join order_detail o\n" +
+                "    on p.ID=o.PRODUCT and o.client_order=" + order.getId() +
+                "   and o.QUANTITY>0 and nvl(o.deleted,0)!=1\n" +
+                " where nvl(p.deleted,0)!=1; ";
+        try {
+            cn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PreparedStatement st1 = null;
+        try {
+            st1 = cn.prepareStatement(SqlSelect);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ResultSet rs = null;
+        BigDecimal sumPaid = null;
+        try {
+            rs = st1.executeQuery(SqlSelect);
+            if (rs.next()) {
+                sumPaid = rs.getBigDecimal(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (sumPaid.doubleValue() > 0) {
+            order.setSumPaid(sumPaid);
+            String SqlUpdate1 = "update CLIENT_ORDER set sum_paid=" + sumPaid +
+                    " where id=" + order.getId();
+            try {
+                cn.setAutoCommit(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            st1 = null;
+            try {
+                st1 = cn.prepareStatement(SqlUpdate1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                int countRows = st1.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                cn.commit();
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
         return false;
     }
 

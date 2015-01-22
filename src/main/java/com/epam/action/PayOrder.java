@@ -1,0 +1,69 @@
+package com.epam.action;
+
+import com.epam.config.Action;
+import com.epam.dao.client.ClientDAO;
+import com.epam.dao.client.H2ClientDAO;
+import com.epam.dao.factory.DAOFactory;
+import com.epam.dao.order.H2OrderDAO;
+import com.epam.dao.order.OrderDAO;
+import com.epam.db.ConnectionPool;
+import com.epam.model.Client;
+import com.epam.model.Order;
+import com.epam.service.ClientService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class PayOrder extends AbstractCommand implements ActionCommand {
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    private Action action;
+
+    @Override
+    public View execute(HttpServletRequest req, HttpServletResponse resp) {
+        Long orderId= Long.parseLong(req.getSession().getAttribute("orderId").toString());
+        double sumPaid= Long.parseLong(req.getSession().getAttribute("sumPaid").toString());
+        if (sumPaid>0){throw new PayOrderException(" Order is paid!");}
+        Order order=new Order();
+        order.setId(orderId);
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        OrderDAO orderDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getOrderDAO();
+        H2OrderDAO h2OrderDAO = (H2OrderDAO) orderDAO;
+        h2OrderDAO.setConnection(connectionPool);
+        View view = new View(this.getAction().getView());
+        if (!h2OrderDAO.payOrder(order)){
+            view.setName("errors/client");
+            //req.getSession().setAttribute("markidnotcorrect", " UnMark All Clients is not possible!=");
+            h2OrderDAO.closeConnection(connectionPool);
+            return view;
+        }
+        h2OrderDAO.closeConnection(connectionPool);
+
+        view.setRedirect(true);
+        System.out.println(" PayOrder view.getName()=" + view.getName());
+        return view;
+    }
+
+    ;
+
+
+    public PayOrder() {
+    }
+
+    ;
+
+    public PayOrder(Action action) {
+        this.action = action;
+    }
+
+    ;
+
+
+}

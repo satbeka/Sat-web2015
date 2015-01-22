@@ -10,6 +10,7 @@ import com.epam.model.Client;
 import com.epam.model.Order;
 import com.epam.model.Product;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +41,9 @@ public class OrderService {
                 order.setId(rs.getLong(1));
                 order.setNumber(rs.getString("NUMBER"));
                 //order.setSum(rs.getBigDecimal("SUM"));
-                //order.setSumPaid(rs.getBigDecimal("SUM_PAID"));
+                BigDecimal sumPaid=BigDecimal.valueOf(0.00);
+                if (!(rs.getDouble("SUM_PAID") >0)){sumPaid=rs.getBigDecimal("SUM_PAID");}
+                order.setSumPaid(sumPaid);
                 //order.setClient(clientId);
                 order.setInsertDate(rs.getDate("INSERT_DATE"));
                 System.out.println("InsertDate="+order.getInsertDate().toString());

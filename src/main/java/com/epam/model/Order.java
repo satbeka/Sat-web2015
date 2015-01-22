@@ -80,6 +80,16 @@ public class Order implements Serializable {
     }
 
     private String number;
+    private BigDecimal sumPaid;
+
+    public BigDecimal getSumPaid() {
+        return sumPaid;
+    }
+
+    public void setSumPaid(BigDecimal sumPaid) {
+        this.sumPaid = sumPaid;
+    }
+
     //private int quantity;
     //private Product product;
     private Client client;

@@ -18,25 +18,15 @@ ${user33}
             
             <td><c:out value="${ elem.number }" /></td>
             <td><fmt:formatDate pattern="dd-MM-yyyy" value="${ elem.insertDate }" /></td>
-            <td><li><a href="<c:url value="/do/clientaddproduct?orderId=${ elem.id }"/>">Вход</a>  Корзина в Ордере  </li></td>
-            <td><c:out value="  orderId=${ elem.id }"/></td>
-
+            <td><li><a href="<c:url value="/do/clientaddproduct?orderId=${ elem.id }"/>">Вход</a> добавить продукт в Ордер</li></td>
             <td>
-                <c:if test="${empty elem.sumPaid }">
-                    <c:out value=" sumPaid=0.00"/>
-                </c:if>
-                <c:if test="${not empty elem.sumPaid }">
-                    <c:out value=" sumPaid=${ elem.sumPaid }"/>
-                </c:if>
-
-            </td>
-            <td>
-                <form method="POST" action="<c:url value="/do/clientlistorder"/>">
-                    <input type="hidden" name="orderId" value="${ elem.id }">
-                    <input type="hidden" name="sumPaid" value="${ elem.sumPaid }">
-                    <button type="submit" class="Order">  Оплатить Ордер </button>
+                <form method="GET" action="<c:url value="/do/clientaddproduct"/>">
+                <input type="hidden" name="orderId" value="${ elem.id }">
+                <button type="submit" class="Order">добавить продукт в Ордер</button>
                 </form>
             </td>
+
+            <td><c:out value="orderId=${ elem.id }"/></td>
         </tr>
     </c:forEach>
 </table>
