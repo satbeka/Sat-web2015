@@ -33,7 +33,10 @@ public class SecurityFilter implements Filter{
         //String role=(String)request.getAttribute("ROLE");
         //System.out.println("seecur role888="+role);
         //System.out.println("seecur Attr role="+httpRequest.getAttributeNames().hashCode());
-        if (role==User.Role.ADMINISTRATOR.toString()){
+        if (!role.isEmpty()){
+            if (!url.contains(role.toLowerCase())){
+                 throw new SecurityFilterException("Attention!!! Url is not contains role= "+role);
+            }
             /*
             RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/view/errors/runtime.jsp");
             dispatcher.forward(request, response);return;
