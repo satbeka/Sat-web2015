@@ -31,9 +31,8 @@ ${user33}
 
             </td>
             <td>
-                <form method="POST" action="<c:url value="/do/clientlistorder"/>">
-                    <input type="hidden" name="orderId" value="${ elem.id }">
-                    <input type="hidden" name="sumPaid" value="${ elem.sumPaid }">
+                <form method="POST" action="<c:url value="/do/clientpayorder?order=${ elem.id }&sumPaid=${ elem.sumPaid }"/>">
+                    <input type="hidden" name="Order Id" value="${ elem.id }">
                     <button type="submit" class="Order">  Оплатить Ордер </button>
                 </form>
             </td>

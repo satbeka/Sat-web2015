@@ -42,11 +42,12 @@ public class OrderService {
                 order.setNumber(rs.getString("NUMBER"));
                 //order.setSum(rs.getBigDecimal("SUM"));
                 BigDecimal sumPaid=BigDecimal.valueOf(0.00);
-                if (!(rs.getDouble("SUM_PAID") >0)){sumPaid=rs.getBigDecimal("SUM_PAID");}
+                if ((rs.getDouble("SUM_PAID") >0)){
+                    sumPaid=rs.getBigDecimal("SUM_PAID");}
                 order.setSumPaid(sumPaid);
                 //order.setClient(clientId);
                 order.setInsertDate(rs.getDate("INSERT_DATE"));
-                System.out.println("InsertDate="+order.getInsertDate().toString());
+                System.out.println("sumPaid="+sumPaid);
 /*
                 ProductDAO productDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getProductDAO();
                 H2ProductDAO h2ProductDAO = (H2ProductDAO) productDAO;

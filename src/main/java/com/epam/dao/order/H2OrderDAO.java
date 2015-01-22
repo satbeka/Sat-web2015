@@ -288,16 +288,16 @@ public class H2OrderDAO implements OrderDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        PreparedStatement st1 = null;
+        Statement st = null;
         try {
-            st1 = cn.prepareStatement(SqlSelect);
+            st = cn.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         ResultSet rs = null;
         BigDecimal sumPaid = null;
         try {
-            rs = st1.executeQuery(SqlSelect);
+            rs = st.executeQuery(SqlSelect);
             if (rs.next()) {
                 sumPaid = rs.getBigDecimal(1);
             }
@@ -314,7 +314,7 @@ public class H2OrderDAO implements OrderDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            st1 = null;
+            PreparedStatement st1 = null;
             try {
                 st1 = cn.prepareStatement(SqlUpdate1);
             } catch (SQLException e) {

@@ -115,6 +115,11 @@ public class CommandFactory {
             actionCommand = new SaveProductListForOrder(result);
         }
         ;
+        if (result.getName().equals("PayOrder")) {
+            actionCommand = new PayOrder(result);
+        }
+        ;
+
 
 
         if (result.getName().toString() == "LoginAction") {
