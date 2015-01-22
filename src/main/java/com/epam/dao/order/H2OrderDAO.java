@@ -179,35 +179,34 @@ public class H2OrderDAO implements OrderDAO {
         //String SqlSeqID = "select seq_id.nextval from dual;";
         if (order==null){return true;}
         Connection cn = this.connection;
+        String SqlUpdate1 = "update ORDER_DETAIL set deleted=1,quantity=0 where client_order="+order.getId();
+        try {
+            cn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PreparedStatement st1 = null;
+        try {
+            st1 = cn.prepareStatement(SqlUpdate1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            int countRows = st1.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            cn.commit();
+            //return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+
+
         if (order.getProducts().size()>0){
-            String SqlUpdate1 = "update ORDER_DETAIL set deleted=1 where client_order="+order.getId();
-            try {
-                cn.setAutoCommit(false);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            PreparedStatement st1 = null;
-            try {
-                st1 = cn.prepareStatement(SqlUpdate1);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                int countRows = st1.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                cn.commit();
-                //return true;
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-            }
-
-
             for (ProductExtQuantity productExtQuantity:order.getProducts()){
-
                 String SqlInsert2 = "insert into ORDER_DETAIL(client_order,quantity,product,sum,sum_paid,deleted)" +
                         " values (?,?,?,0,0,0)";
 
