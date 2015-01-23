@@ -26,7 +26,7 @@ public class OrderService {
 
         PreparedStatement st = null;
         try {
-            st = cn.prepareStatement("select * from client_order where user =? and nvl(deleted,0)!=1;");
+            st = cn.prepareStatement("select * from client_order where user =? and nvl(deleted,0)!=1 order by id;");
             st.setLong(1, clientId);
         } catch (SQLException e) {
             //TODO log;

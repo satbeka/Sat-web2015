@@ -5,7 +5,7 @@
 <%! int b; %>
 <html>
 <head>
-    <title>List of Client for Administrator</title>
+    <title>List of Clients</title>
 </head>
 <body>
 ${user33}
@@ -34,7 +34,7 @@ ${user33}
 </table>
 </form>
 <tr>
-    <button type="submit" class="button" form="markclientlist">Save List</button>
+    <button type="submit" class="button" form="markclientlist"> Save </button>
 </tr>
 
 </body>

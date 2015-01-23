@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>clientmenu</title>
+    <title> Client menu </title>
 </head>
 
 <body>
@@ -16,10 +16,7 @@
     </div>
 
     <ul>
-        <li><a href="/do/clientlistorder" class="login-button">Вход</a> в корзину заказов</li>
-        <li><a href="/do/clientpayorder" class="login-button">Вход</a> оплата заказа</li>
-        <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов</li>
-        <li><a href="/do/administratoraddproduct" class="login-button">Вход</a> в каталог продуктов</li>
+        <li><a href="/do/clientlistorder" class="login-button"> MyClick  </a> Orders </li>
     </ul>
 
 

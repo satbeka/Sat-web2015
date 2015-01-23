@@ -120,12 +120,6 @@ public class CommandFactory {
         }
         ;
 
-
-
-        if (result.getName().toString() == "LoginAction") {
-            actionCommand = new Login();
-        }
-        ;
         return actionCommand;
     }
 }

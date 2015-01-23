@@ -67,21 +67,4 @@
         <view>/do/clientlistorder</view>
     </action>
 
-
-
-
-
-
-
-    <action method="GET" path="/do/client/payOrder">
-        <name>PayOrderAction</name>
-        <view>payorder</view>
-    </action>
-    <action method="GET" path="/do/client/deleteOrder">
-        <name>DeleteOrderAction</name>
-        <view>deleteorder</view>
-    </action>
-
-
-
 </eshop>

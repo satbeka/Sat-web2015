@@ -4,12 +4,13 @@
 
 <html>
 <head>
-    <title>Products for Administrator</title>
+    <title> Products for Administrator </title>
 </head>
 <body>
 ${user33}
 <br/>
 <a href="logout">Logout</a>
+<li> Current Products for Administrator </li>
 <table>
     <c:forEach var="elem" items="${lst}">
         <tr>
@@ -22,6 +23,7 @@ ${user33}
         </tr>
     </c:forEach>
 </table>
+<li> Add the New Product </li>
 <form action="<c:url value="/do/administratoraddproduct"/>" method="post">
     Name: <input type="text" name="name">
     <br />

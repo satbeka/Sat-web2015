@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Products for Client Order</title>
+    <title>Products in the Order</title>
 </head>
 <body>
 ${user33}
@@ -19,7 +19,7 @@ ${user33}
             <td><c:out value="${ elem.id }"/></td>
             <td><c:out value="${ elem.name }"/></td>
             <td><c:out value="${ elem.price }"/></td>
-            <td>Quantity: <input type="text" name="quantity" value="${ elem.quantity }">
+            <td>  Quantity:  <input type="text" name="quantity" value="${ elem.quantity }">
             </td>
             <td>
                 <input type="hidden" type="text" name="productId"
@@ -39,7 +39,7 @@ ${user33}
 </table>
 </form>
 <tr>
-    <button type="submit" class="button" form="productlist">Save Product List</button>
+    <button type="submit" class="button" form="productlist"> Save Products  </button>
 </tr>
 </body>
 </html>

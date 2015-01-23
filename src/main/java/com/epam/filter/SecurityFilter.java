@@ -30,11 +30,13 @@ public class SecurityFilter implements Filter{
         //System.out.println("session url="+session.getAttribute("URL"));
         //String role=
         String role=(String)session.getAttribute("ROLE");
+        System.out.println("role="+role);
         //String role=(String)request.getAttribute("ROLE");
         //System.out.println("seecur role888="+role);
         //System.out.println("seecur Attr role="+httpRequest.getAttributeNames().hashCode());
-        if (!role.isEmpty()){
-            if (!url.contains(role.toLowerCase())){
+        if (!(role==null)){
+            System.out.println("url="+url);
+            if (!url.contains(role.toLowerCase())&(url=="/logout")){
                  throw new SecurityFilterException("Attention!!! Url is not contains role= "+role);
             }
             /*

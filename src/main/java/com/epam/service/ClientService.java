@@ -22,7 +22,7 @@ public class ClientService {
 
         PreparedStatement st = null;
         try {
-            st = cn.prepareStatement("select * from user where role=0 and nvl(deleted,0)!=1;");
+            st = cn.prepareStatement("select * from user where role=0 and nvl(deleted,0)!=1 order by id;");
             //st.setString(1,client.getName());
         } catch (SQLException e) {
             //TODO log;
