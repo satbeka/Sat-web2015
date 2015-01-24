@@ -31,18 +31,18 @@
     <ul>
         <li><fmt:message key="label.body3" /></li>
         <li><fmt:message key="label.body4" /></li>
-        <li>Mark the Client to Blacklist</li>
-        <li>Add a new product to the system</li>
-        <li>Create a new Order</li>
-        <li>Pay for the Order</li>
-        <li>Add a new product and quantity to the Order</li>
-        <li>View information of Pay sum of the Order</li>
+        <li><fmt:message key="label.body5" /></li>
+        <li><fmt:message key="label.body6" /></li>
+        <li><fmt:message key="label.body7" /></li>
+        <li><fmt:message key="label.body8" /></li>
+        <li><fmt:message key="label.body9" /></li>
+        <li><fmt:message key="label.body10" /></li>
     </ul>
     
     </td>
 
     <ul>
-        <li><a href="<c:url value="/do/login"/>" class="login-button">Sign In </a>  an Account </li>
+        <li><a href="<c:url value="/do/login"/>" class="login-button"><fmt:message key="label.login1" /> </a><fmt:message key="label.login2" /></li>
     </ul>
 
 
