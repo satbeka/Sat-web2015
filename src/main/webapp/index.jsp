@@ -24,13 +24,13 @@
 </div>
 
     <p>
-        The Sat-web application supports the following:
+        <fmt:message key="label.body1" />
     </p>
 
-    <h3>Use Cases</h3>
+    <h3><fmt:message key="label.body2" /></h3>
     <ul>
-        <li>View a list of Products and their properties</li>
-        <li>View a list of Clients</li>
+        <li><fmt:message key="label.body3" /></li>
+        <li><fmt:message key="label.body4" /></li>
         <li>Mark the Client to Blacklist</li>
         <li>Add a new product to the system</li>
         <li>Create a new Order</li>
