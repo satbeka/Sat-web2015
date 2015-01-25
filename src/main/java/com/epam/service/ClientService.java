@@ -2,6 +2,8 @@ package com.epam.service;
 
 import com.epam.db.ConnectionPool;
 import com.epam.model.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import com.epam.model.Product;
 
 import java.sql.Connection;
@@ -14,23 +16,25 @@ import java.util.ArrayList;
 
 public class ClientService {
 
-    public static ArrayList<Client> findClientsByAdministrator() {
-        ArrayList<Client> clients=new ArrayList<Client>();
+    private static final Logger log = LoggerFactory.getLogger(ClientService.class);
 
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
-        Connection cn=connectionPool.takeConnection();
+    public static ArrayList<Client> findClientsByAdministrator() {
+        ArrayList<Client> clients = new ArrayList<Client>();
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection cn = connectionPool.takeConnection();
 
         PreparedStatement st = null;
         try {
             st = cn.prepareStatement("select * from user where role=0 and nvl(deleted,0)!=1 order by id;");
             //st.setString(1,client.getName());
         } catch (SQLException e) {
-            //TODO log;
+
         }
 
         ResultSet rs = null;
         try {
-            rs=st.executeQuery();
+            rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
                 Client client = new Client();
@@ -44,7 +48,7 @@ public class ClientService {
             //return administrator;
 
         } catch (SQLException e) {
-            //TODO log
+            log.debug("ClientService=" + e.getMessage());
         }
 
         return clients;
@@ -53,14 +57,14 @@ public class ClientService {
     public static boolean unMarkAllClientsbyAdministrator() {
 
         //String SqlSeqID="select seq_id.nextval from dual;";
-        String SqlUpd="update USER set blacklist=0 where nvl(deleted,0)!=1 and role=0;";
+        String SqlUpd = "update USER set blacklist=0 where nvl(deleted,0)!=1 and role=0;";
 
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
-        Connection cn=connectionPool.takeConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection cn = connectionPool.takeConnection();
 
-        PreparedStatement st=null;
+        PreparedStatement st = null;
         try {
-            st=cn.prepareStatement(SqlUpd);
+            st = cn.prepareStatement(SqlUpd);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,14 +72,14 @@ public class ClientService {
         try {
             int countRows = st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("ClientService=" + e.getMessage());
         }
 
         try {
             cn.commit();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return false;

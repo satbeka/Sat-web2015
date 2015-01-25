@@ -8,11 +8,12 @@
 <fmt:setBundle basename="indexcontent"/>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="labelAdministratoraddproduct.title" /></title>
+    <title><fmt:message key="labelAdministratoraddproduct.title"/></title>
 </head>
 <body>
 ${user33}
 <br/>
+
 <form>
     <select id="language" name="language" onchange="submit()">
         <option value="es" ${language == 'es' ? 'selected' : ''}>Español</option>
@@ -21,8 +22,8 @@ ${user33}
 
     </select>
 </form>
-<a href="logout"><fmt:message key="label.logout" /></a>
-<li><fmt:message key="labelAdministratoraddproduct.body1" /></li>
+<a href="logout"><fmt:message key="label.logout"/></a>
+<li><fmt:message key="labelAdministratoraddproduct.body1"/></li>
 <table>
     <c:forEach var="elem" items="${lst}">
         <tr>
@@ -35,11 +36,11 @@ ${user33}
         </tr>
     </c:forEach>
 </table>
-<li><fmt:message key="labelAdministratoraddproduct.body2" /></li>
+<li><fmt:message key="labelAdministratoraddproduct.body2"/></li>
 <form action="<c:url value="/do/administratoraddproduct"/>" method="post">
-    <fmt:message key="labelAdministratoraddproduct.body3" /> <input type="text" name="name">
+    <fmt:message key="labelAdministratoraddproduct.body3"/> <input type="text" name="name">
     <br/>
-    <fmt:message key="labelAdministratoraddproduct.body4" /> <input type="text" name="price"/>
+    <fmt:message key="labelAdministratoraddproduct.body4"/> <input type="text" name="price"/>
     <input type="submit" value="Submit"/>
 </form>
 </body>

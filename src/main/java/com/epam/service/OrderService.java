@@ -9,6 +9,8 @@ import com.epam.dao.product.ProductDAO;
 import com.epam.model.Client;
 import com.epam.model.Order;
 import com.epam.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -18,6 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderService {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
 
     public static ArrayList<Order> findOrdersByClient(Long clientId) {
         ArrayList<Order> orders = new ArrayList<Order>();
@@ -29,7 +33,7 @@ public class OrderService {
             st = cn.prepareStatement("select * from client_order where user =? and nvl(deleted,0)!=1 order by id;");
             st.setLong(1, clientId);
         } catch (SQLException e) {
-            //TODO log;
+
         }
 
         ResultSet rs = null;
@@ -41,13 +45,14 @@ public class OrderService {
                 order.setId(rs.getLong(1));
                 order.setNumber(rs.getString("NUMBER"));
                 //order.setSum(rs.getBigDecimal("SUM"));
-                BigDecimal sumPaid=BigDecimal.valueOf(0.00);
-                if ((rs.getDouble("SUM_PAID") >0)){
-                    sumPaid=rs.getBigDecimal("SUM_PAID");}
+                BigDecimal sumPaid = BigDecimal.valueOf(0.00);
+                if ((rs.getDouble("SUM_PAID") > 0)) {
+                    sumPaid = rs.getBigDecimal("SUM_PAID");
+                }
                 order.setSumPaid(sumPaid);
                 //order.setClient(clientId);
                 order.setInsertDate(rs.getDate("INSERT_DATE"));
-                System.out.println("sumPaid="+sumPaid);
+                log.debug("sumPaid=" + sumPaid);
 /*
                 ProductDAO productDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getProductDAO();
                 H2ProductDAO h2ProductDAO = (H2ProductDAO) productDAO;
@@ -61,7 +66,7 @@ public class OrderService {
             //return administrator;
 
         } catch (SQLException e) {
-            //TODO log
+            log.debug("OrderService=" + e.getMessage());
         }
 
 
@@ -69,7 +74,7 @@ public class OrderService {
     }
 
     public static Long getMaxIdOrderByClient(Long clientId) {
-        Long id= Long.valueOf(0);
+        Long id = Long.valueOf(0);
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection cn = connectionPool.takeConnection();
 
@@ -78,7 +83,7 @@ public class OrderService {
             st = cn.prepareStatement("select max (id) from client_order where user =? and nvl(deleted,0)!=1;");
             st.setLong(1, clientId);
         } catch (SQLException e) {
-            //TODO log;
+
         }
 
         ResultSet rs = null;
@@ -86,13 +91,13 @@ public class OrderService {
             rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
-                id=rs.getLong(1);
+                id = rs.getLong(1);
                 return id;
             }
             //return administrator;
 
         } catch (SQLException e) {
-            //TODO log
+            log.debug("OrderService=" + e.getMessage());
         }
         return id;
     }

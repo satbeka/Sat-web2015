@@ -5,11 +5,15 @@ package com.epam.action;
 
 import com.epam.config.Action;
 import com.epam.config.Eshop;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CommandFactory {
+
+    private static final Logger log = LoggerFactory.getLogger(CommandFactory.class);
 
     public ArrayList<Action> getCommandList() {
         return commandList;
@@ -39,18 +43,18 @@ public class CommandFactory {
         Action result = null;
         for (Iterator<Action> i = listAction.iterator(); i.hasNext(); ) {
             result = i.next();
-//            System.out.println(" result.getMethod()= "+result.getMethod());
-//            System.out.println(" result.getPath()= "+result.getPath());
+            log.debug(" result.getMethod()= " + result.getMethod());
+            log.debug(" result.getPath()= " + result.getPath());
 
             if ((result.getMethod().equals(method)) & (result.getPath().equals(path))) {
-                System.out.println(" have result= "+result.getName());
+                log.debug(" have result= " + result.getName());
                 break;
             }
             result = null;
 
         }
-        System.out.println(" method= " + method);
-        System.out.println(" path= " + path);
+        log.debug(" method= " + method);
+        log.debug(" path= " + path);
 
         if (result == null) {
             return actionCommand;
@@ -67,7 +71,8 @@ public class CommandFactory {
             actionCommand = new Login(result);
             return actionCommand;
 
-        };
+        }
+        ;
         //AdministratorWhatDo
         if (result.getName().equals("AdministratorWhatDo")) {
             actionCommand = new AdministratorWhatDo(result);

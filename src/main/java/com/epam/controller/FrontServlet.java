@@ -42,7 +42,7 @@ public class FrontServlet extends HttpServlet {
 
         //User user=new Administrator();
         if (session.getAttribute("ROLE") != "ADMINISTRATOR") {
-            System.out.println("front role= "+session.getAttribute("ROLE"));
+            log.debug("front role= " + session.getAttribute("ROLE"));
             //session.setAttribute("ROLE", "ADMINISTRATOR");
         }
         ;
@@ -52,41 +52,40 @@ public class FrontServlet extends HttpServlet {
         String path = req.getPathInfo();
 
         //System.out.println("doGet 5577778887775999111");
-        Object object=req.getServletContext().getAttribute("CommandFabric");
+        Object object = req.getServletContext().getAttribute("CommandFabric");
         //System.out.println("doGet CommandFabric="+object);
 
         CommandFactory commandFactory = (CommandFactory) req.getServletContext().getAttribute("CommandFabric");
         ActionCommand actionCommand = commandFactory.defineCommand(method, path);
         if (actionCommand == null) {
-            System.out.println("Action not found");
+            log.debug("Action not found");
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
             return;
         }
 
         View view = actionCommand.execute(req, resp);
-        System.out.println("   /WEB-INF/view/"+view.getName().toString() + ".jsp");
+        log.debug("   /WEB-INF/view/" + view.getName().toString() + ".jsp");
         doForwardOrRedirect(view, req, resp);
         //return;
 
     }
 
     private void doForwardOrRedirect(View view, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (view.isRedirect()){
+        if (view.isRedirect()) {
             //resp.encodeRedirectURL("");
             //req.s
-            String location = req.getContextPath() +  view.getName().toString();
+            String location = req.getContextPath() + view.getName().toString();
             //System.out.println("post send redirect location="+location);
             resp.sendRedirect(location);
-            System.out.println("return post send redirect location="+location);
+            log.debug("return post send redirect location=" + location);
             return;
-        }
-        else {
+        } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/" + view.getName().toString() + ".jsp");
-            System.out.println("forward="+view.getName().toString());
+            log.debug("forward=" + view.getName().toString());
             if (dispatcher != null) {
                 dispatcher.forward(req, resp);
             }
-    }
+        }
 
 
     }

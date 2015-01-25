@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,9 +5,9 @@
 </head>
 <body>
 
-<jsp:text>Sorry, you try to decide problem! Please, Try again later! </jsp:text>
+<jsp:text>Sorry, you try to decide problem! Please, Try again later!</jsp:text>
 ${ header["host"] }
-<a> servletName=  ${pageContext.servletConfig.servletName} </a>
+<a> servletName= ${pageContext.servletConfig.servletName} </a>
 
 Request from ${pageContext.errorData.requestURI} is failed
 <br/>

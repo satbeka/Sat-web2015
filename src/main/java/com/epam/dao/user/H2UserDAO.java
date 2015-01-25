@@ -5,6 +5,8 @@ import com.epam.db.ConnectionPool;
 import com.epam.model.Administrator;
 import com.epam.model.Client;
 import com.epam.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.RowSet;
 import java.sql.Connection;
@@ -13,9 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class H2UserDAO implements UserDAO{
+public class H2UserDAO implements UserDAO {
 
-
+    private static final Logger log = LoggerFactory.getLogger(H2UserDAO.class);
     private Connection connection = null;
 
     // initialization
@@ -23,14 +25,18 @@ public class H2UserDAO implements UserDAO{
     }
 
     public Connection setConnection(ConnectionPool connectionPool) {
-        if (this.connection==null){
-            this.connection=connectionPool.takeConnection();};
+        if (this.connection == null) {
+            this.connection = connectionPool.takeConnection();
+        }
+        ;
         return this.connection;
     }
 
     public void closeConnection(ConnectionPool connectionPool) {
-        if (this.connection!=null){
-            connectionPool.releaseConnection(this.connection);};
+        if (this.connection != null) {
+            connectionPool.releaseConnection(this.connection);
+        }
+        ;
         return;
     }
 
@@ -52,32 +58,33 @@ public class H2UserDAO implements UserDAO{
     @Override
     public User findUserByLogin(String login) {
         //User user=new User();
-        Connection cn=this.connection;
+        Connection cn = this.connection;
 
         PreparedStatement st = null;
         try {
             st = cn.prepareStatement("select * from user where login =? and nvl(deleted,0)!=1;");
-            st.setString(1,login);
+            st.setString(1, login);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         ResultSet rs = null;
-        Long role=null;
+        Long role = null;
         try {
-            rs=st.executeQuery();
+            rs = st.executeQuery();
             rs.next();
-            role=rs.getLong(3);
-            if (role==1) {
-                Administrator administrator=null;
+            role = rs.getLong(3);
+            if (role == 1) {
+                Administrator administrator = null;
                 administrator.setId(rs.getLong(1));
                 administrator.setName(rs.getString(2));
                 administrator.setBirthDay(rs.getDate(8));
                 administrator.setInn(rs.getString(7));
                 administrator.setPassword(rs.getString(6));
-                return administrator;}
+                return administrator;
+            }
 
-            Client client=null;
+            Client client = null;
             client.setId(rs.getLong(1));
             client.setName(rs.getString(2));
             client.setBirthDay(rs.getDate(8));
@@ -86,44 +93,45 @@ public class H2UserDAO implements UserDAO{
             return client;
 
         } catch (SQLException e) {
-            //TODO log e.printStackTrace();
+            log.debug("H2UserDAO=" + e.getMessage());
         }
 
         return null;
     }
 
-    public User findUserByLoginByPassword(String login,String password) {
+    public User findUserByLoginByPassword(String login, String password) {
         //User user=new User();
-        Connection cn=this.connection;
-        System.out.println("login="+login);
-        System.out.println("password="+password);
+        Connection cn = this.connection;
+        System.out.println("login=" + login);
+        System.out.println("password=" + password);
         PreparedStatement st = null;
         try {
             st = cn.prepareStatement("select * from user where login =? and password =? and nvl(deleted,0)!=1;");
-            st.setString(1,login);
-            st.setString(2,password);
+            st.setString(1, login);
+            st.setString(2, password);
         } catch (SQLException e) {
-            //TODO log e.printStackTrace();
+            log.debug("H2UserDAO=" + e.getMessage());
         }
 
         ResultSet rs = null;
-        Long role=null;
+        Long role = null;
         try {
-            rs=st.executeQuery();
+            rs = st.executeQuery();
             rs.next();
-            role=rs.getLong("ROLE");
-            if (role==1) {
-                Administrator administrator=new Administrator();
-                System.out.println("administrato="+administrator);
-                System.out.println("rs.getLong(1)="+rs.getLong(1));
+            role = rs.getLong("ROLE");
+            if (role == 1) {
+                Administrator administrator = new Administrator();
+                log.debug("administrato=" + administrator);
+                log.debug("rs.getLong(1)=" + rs.getLong(1));
                 administrator.setId(rs.getLong(1));
                 administrator.setName(rs.getString(2));
                 administrator.setBirthDay(rs.getDate(8));
                 administrator.setInn(rs.getString(7));
                 administrator.setPassword(rs.getString(6));
-                return administrator;}
+                return administrator;
+            }
 
-            Client client=new Client();
+            Client client = new Client();
             client.setId(rs.getLong(1));
             client.setName(rs.getString(2));
             client.setBirthDay(rs.getDate(8));
@@ -132,8 +140,8 @@ public class H2UserDAO implements UserDAO{
             return client;
 
         } catch (SQLException e) {
-            System.out.println("sql="+e.getMessage());
-            //TODO log e.printStackTrace();
+            log.debug("H2UserDAO=" + e.getMessage());
+
         }
 
         return null;

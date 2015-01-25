@@ -3,6 +3,8 @@ package com.epam.dao.order;
 import com.epam.db.ConnectionPool;
 import com.epam.model.Order;
 import com.epam.model.ProductExtQuantity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.RowSet;
 import java.math.BigDecimal;
@@ -11,6 +13,7 @@ import java.util.List;
 
 
 public class H2OrderDAO implements OrderDAO {
+    private static final Logger log = LoggerFactory.getLogger(H2OrderDAO.class);
     private Connection connection = null;
 
     // initialization
@@ -44,14 +47,14 @@ public class H2OrderDAO implements OrderDAO {
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         Statement st = null;
         try {
             st = cn.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         ResultSet rs = null;
@@ -63,40 +66,40 @@ public class H2OrderDAO implements OrderDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         PreparedStatement st2 = null;
         try {
             st2 = cn.prepareStatement(SqlInsert2);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         try {
             st2.setLong(1, id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
 
         try {
             st2.setString(2, order.getNumber());
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         if (order.getClient() != null) {
             try {
                 st2.setLong(3, order.getClient().getId());
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
         } else {
             try {
                 st2.setNull(3, Types.BIGINT);
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
         }
         ;
@@ -107,7 +110,7 @@ public class H2OrderDAO implements OrderDAO {
         try {
             st2.setDate(4, order.getInsertDate());
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         rs = null;
@@ -117,14 +120,14 @@ public class H2OrderDAO implements OrderDAO {
                 id = -1;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         try {
             cn.commit();
             return id;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         return id;
@@ -152,14 +155,14 @@ public class H2OrderDAO implements OrderDAO {
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         Statement st = null;
         try {
             st = cn.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         ResultSet rs = null;
@@ -170,7 +173,7 @@ public class H2OrderDAO implements OrderDAO {
             return orderNumber;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
 
@@ -188,25 +191,25 @@ public class H2OrderDAO implements OrderDAO {
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
         PreparedStatement st1 = null;
         try {
             st1 = cn.prepareStatement(SqlUpdate1);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         try {
             int countRows = st1.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
         try {
             cn.commit();
             //return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
 
@@ -218,32 +221,32 @@ public class H2OrderDAO implements OrderDAO {
                 try {
                     cn.setAutoCommit(false);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+
                 }
                 PreparedStatement st2 = null;
                 try {
                     st2 = cn.prepareStatement(SqlInsert2);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+
                 }
 
                 try {
                     st2.setLong(1, order.getId());
                 } catch (SQLException e) {
-                    e.printStackTrace();
+
                 }
 
 
                 try {
                     st2.setInt(2, productExtQuantity.getQuantity());
                 } catch (SQLException e) {
-                    e.printStackTrace();
+
                 }
 
                 try {
                     st2.setLong(3, productExtQuantity.getId());
                 } catch (SQLException e) {
-                    e.printStackTrace();
+
                 }
                 ;
 
@@ -255,7 +258,7 @@ public class H2OrderDAO implements OrderDAO {
                         return false;
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    log.debug("H2OrderDAO=" + e.getMessage());
                 }
 
             }
@@ -266,7 +269,7 @@ public class H2OrderDAO implements OrderDAO {
             cn.commit();
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         return false;
@@ -286,13 +289,13 @@ public class H2OrderDAO implements OrderDAO {
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         Statement st = null;
         try {
             st = cn.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         ResultSet rs = null;
         BigDecimal sumPaid = null;
@@ -302,7 +305,7 @@ public class H2OrderDAO implements OrderDAO {
                 sumPaid = rs.getBigDecimal(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug("H2OrderDAO=" + e.getMessage());
         }
 
         if (sumPaid.doubleValue() > 0) {
@@ -312,25 +315,25 @@ public class H2OrderDAO implements OrderDAO {
             try {
                 cn.setAutoCommit(false);
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
             PreparedStatement st1 = null;
             try {
                 st1 = cn.prepareStatement(SqlUpdate1);
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
 
             try {
                 int countRows = st1.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.debug("H2OrderDAO=" + e.getMessage());
             }
             try {
                 cn.commit();
                 return true;
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                log.debug("H2OrderDAO=" + e.getMessage());
             }
         }
         return false;

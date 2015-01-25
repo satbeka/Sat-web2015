@@ -12,13 +12,17 @@ import com.epam.model.Order;
 import com.epam.model.Product;
 import com.epam.service.OrderService;
 import com.epam.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 
 
-public class SaveBlankOrder extends AbstractCommand implements ActionCommand{
+public class SaveBlankOrder extends AbstractCommand implements ActionCommand {
+    private static final Logger log = LoggerFactory.getLogger(SaveBlankOrder.class);
+
     public Action getAction() {
         return action;
     }
@@ -28,49 +32,63 @@ public class SaveBlankOrder extends AbstractCommand implements ActionCommand{
     }
 
     private Action action;
+
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
-        String number=req.getParameter("NUMBER");
-        Long clientId= Long.parseLong(req.getSession().getAttribute("clientId").toString());
-        Long numberId=OrderService.getMaxIdOrderByClient(clientId);
+        String number = req.getParameter("NUMBER");
+        Long clientId = Long.parseLong(req.getSession().getAttribute("clientId").toString());
+        Long numberId = OrderService.getMaxIdOrderByClient(clientId);
         numberId++;
-        if (number.isEmpty()){number= numberId.toString();};
+        if (number.isEmpty()) {
+            number = numberId.toString();
+        }
+        ;
         //String price=req.getParameter("price");
         View view = new View(this.getAction().getView());
-        if (!Validator.isLoginCorrect(number)){
+        if (!Validator.isLoginCorrect(number)) {
             view.setName("errors/client");
             req.getSession().setAttribute("numbernotcorrect", " NUMBER not correct!");
             return view;
-        };
+        }
+        ;
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        OrderDAO orderDAO=DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getOrderDAO();
-        H2OrderDAO h2OrderDAO=(H2OrderDAO)orderDAO;
+        OrderDAO orderDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getOrderDAO();
+        H2OrderDAO h2OrderDAO = (H2OrderDAO) orderDAO;
         h2OrderDAO.setConnection(connectionPool);
-        Order order=new Order();
+        Order order = new Order();
         //order.setSumPaid(BigDecimal.valueOf(0));
         //order.setSum(BigDecimal.valueOf(0));
         order.setNumber(number);
-        Client client=new Client();
+        Client client = new Client();
         client.setId(clientId);
         order.setClient(client);
 
-        long id=h2OrderDAO.insertBlankOrder(order);
+        long id = h2OrderDAO.insertBlankOrder(order);
         if (id == -1) {
             //req.setAttribute();
             view.setName("errors/client");
             return view;
-        };
+        }
+        ;
         view.setRedirect(true);
-        System.out.println("saveorder view.getName()=" + view.getName());
+        log.debug("saveorder view.getName()=" + view.getName());
         return view;
-    };
+    }
+
+    ;
 
 
-    public SaveBlankOrder() {};
-    public SaveBlankOrder(Action action){
-        this.action=action;
-    };
+    public SaveBlankOrder() {
+    }
+
+    ;
+
+    public SaveBlankOrder(Action action) {
+        this.action = action;
+    }
+
+    ;
 
 
 }

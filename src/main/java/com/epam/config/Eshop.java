@@ -13,8 +13,9 @@ public class Eshop {
         return list;
     }
 
-    @XmlElement(name="action")
+    @XmlElement(name = "action")
     private ArrayList<Action> list = new ArrayList<Action>();
+
     public Eshop() {
         super();
     }
@@ -23,6 +24,7 @@ public class Eshop {
     public void setList(ArrayList<Action> list) {
         this.list = list;
     }
+
     public boolean add(Action ac) {
         return list.add(ac);
     }

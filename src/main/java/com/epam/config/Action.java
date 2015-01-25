@@ -32,10 +32,12 @@ public class Action {
         this.view = view;
     }
 
-    public Action() { }
-    public Action(String name,String view, String method, String path) {
+    public Action() {
+    }
+
+    public Action(String name, String view, String method, String path) {
         this.name = name;
-        this.view=view;
+        this.view = view;
         this.method = method;
         this.path = path;
     }

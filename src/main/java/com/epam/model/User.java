@@ -8,7 +8,10 @@ public abstract class User {
 
     private Long id;
     private String name;
-    public enum Role { ADMINISTRATOR, CLIENT, ALIEN };
+
+    public enum Role {ADMINISTRATOR, CLIENT, ALIEN}
+
+    ;
     private Address address;
     private String login;
     private String password;

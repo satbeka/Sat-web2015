@@ -1,13 +1,10 @@
 package com.epam.service;
-//init Quantity=0 Sat190115
 
-import com.epam.dao.factory.DAOFactory;
-import com.epam.dao.product.H2ProductDAO;
-import com.epam.dao.product.ProductDAO;
+
 import com.epam.db.ConnectionPool;
-//import com.epam.model.Order;
 import com.epam.model.Product;
-import com.epam.model.ProductExtQuantity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,24 +13,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductService {
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
 
     public static ArrayList<Product> findProductsByAdministrator() {
-        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Product> products = new ArrayList<Product>();
 
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
-        Connection cn=connectionPool.takeConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection cn = connectionPool.takeConnection();
 
         PreparedStatement st = null;
         try {
             st = cn.prepareStatement("select * from product where nvl(deleted,0)!=1;");
             //st.setString(1,client.getName());
         } catch (SQLException e) {
-            //TODO log;
+
         }
 
         ResultSet rs = null;
         try {
-            rs=st.executeQuery();
+            rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
                 Product product = new Product();
@@ -46,7 +44,7 @@ public class ProductService {
             //return administrator;
 
         } catch (SQLException e) {
-            //TODO log
+            log.debug("ProductService=" + e.getMessage());
         }
 
         return products;

@@ -12,8 +12,12 @@ import com.epam.dao.order.H2OrderDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.dao.product.H2ProductDAO;
 import com.epam.dao.product.ProductDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class H2DAOFactory extends DAOFactory {
+    private static final Logger log = LoggerFactory.getLogger(H2DAOFactory.class);
+
     public ConnectionPool getPool() {
         return pool;
     }

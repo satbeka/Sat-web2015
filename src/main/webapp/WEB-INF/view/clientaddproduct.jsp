@@ -8,11 +8,12 @@
 <fmt:setBundle basename="indexcontent"/>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="labelClientaddproduct.title" /></title>
+    <title><fmt:message key="labelClientaddproduct.title"/></title>
 </head>
 <body>
 ${user33}
 <br/>
+
 <form>
     <select id="language" name="language" onchange="submit()">
         <option value="es" ${language == 'es' ? 'selected' : ''}>Español</option>
@@ -24,37 +25,38 @@ ${user33}
 <a href="logout"><fmt:message key="label.logout"/></a>
 <li><c:out value="orderId=${orderId}"/></li>
 <li><c:out value="clientId=${clientId}"/></li>
-<div>"   "</div>
+<div></div>
 <div><fmt:message key="labelClientaddproduct.body1"/></div>
 <form id="productlist" action="<c:url value="/do/clientaddproduct"/>" method="post">
-<table>
-    <c:forEach var="elem" items="${productList}">
-        <tr>
+    <table>
+        <c:forEach var="elem" items="${productList}">
+            <tr>
 
-            <td><c:out value="${ elem.id }"/></td>
-            <td><c:out value="${ elem.name }"/></td>
-            <td><c:out value="${ elem.price }"/></td>
-            <td>  <fmt:message key="labelClientaddproduct.Quantity" /><input type="text" name="quantity" value="${ elem.quantity }">
-            </td>
-            <td>
-                <input type="hidden" type="text" name="productId"
-                       value="${elem.id}"
-                        >
-            </td>
-            <td>
-                <input type="checkbox" name="markId"
-                        <c:if test="${ elem.quantity!=0 }">checked="checked"</c:if>
-                       value="${elem.id}"
-                        />
-            </td>
+                <td><c:out value="${ elem.id }"/></td>
+                <td><c:out value="${ elem.name }"/></td>
+                <td><c:out value="${ elem.price }"/></td>
+                <td><fmt:message key="labelClientaddproduct.Quantity"/><input type="text" name="quantity"
+                                                                              value="${ elem.quantity }">
+                </td>
+                <td>
+                    <input type="hidden" type="text" name="productId"
+                           value="${elem.id}"
+                            >
+                </td>
+                <td>
+                    <input type="checkbox" name="markId"
+                           <c:if test="${ elem.quantity!=0 }">checked="checked"</c:if>
+                           value="${elem.id}"
+                            />
+                </td>
 
 
-        </tr>
-    </c:forEach>
-</table>
+            </tr>
+        </c:forEach>
+    </table>
 </form>
 <tr>
-    <button type="submit" class="button" form="productlist"><fmt:message key="labelClientaddproduct.button" /></button>
+    <button type="submit" class="button" form="productlist"><fmt:message key="labelClientaddproduct.button"/></button>
 </tr>
 </body>
 </html>

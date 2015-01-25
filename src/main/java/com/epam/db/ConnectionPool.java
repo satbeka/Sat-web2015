@@ -1,6 +1,9 @@
 package com.epam.db;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
@@ -11,7 +14,7 @@ import java.util.concurrent.Executor;
 
 
 public class ConnectionPool {
-
+    private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class);
     public static final int POOL_SIZE = 10;
     private BlockingQueue<Connection> connectionQueue;
 
@@ -54,7 +57,7 @@ public class ConnectionPool {
 
     public static ConnectionPool getInstance() {
         //ConnectionPoolHolder connectionPoolHolder = new ConnectionPoolHolder();
-        System.out.println("ConnectionPoolHolder.instance=" + ConnectionPoolHolder.instance);
+        log.debug("ConnectionPoolHolder.instance=" + ConnectionPoolHolder.instance);
 
 
         return ConnectionPoolHolder.instance;
@@ -65,8 +68,8 @@ public class ConnectionPool {
         Connection connection = null;
         try {
             connection = connectionQueue.take();
-        } catch (InterruptedException e) {/*TODO log*/
-            System.out.println("e=" + e.toString());
+        } catch (InterruptedException e) {
+            log.debug("e=" + e.toString());
         }
         return connection;
     }

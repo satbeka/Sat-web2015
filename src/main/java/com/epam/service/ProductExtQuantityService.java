@@ -4,6 +4,8 @@ package com.epam.service;
 import com.epam.db.ConnectionPool;
 import com.epam.model.Product;
 import com.epam.model.ProductExtQuantity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,27 +17,29 @@ import java.util.ArrayList;
 
 public class ProductExtQuantityService {
 
-    public static ArrayList<ProductExtQuantity> findProductsForOrder(Long orderId) {
-        ArrayList<ProductExtQuantity> products=new ArrayList<ProductExtQuantity>();
+    private static final Logger log = LoggerFactory.getLogger(ProductExtQuantityService.class);
 
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
-        Connection cn=connectionPool.takeConnection();
+    public static ArrayList<ProductExtQuantity> findProductsForOrder(Long orderId) {
+        ArrayList<ProductExtQuantity> products = new ArrayList<ProductExtQuantity>();
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection cn = connectionPool.takeConnection();
 
         PreparedStatement st = null;
         try {
             st = cn.prepareStatement(
-            " select p.*,o.QUANTITY from product p left OUTER join " +
-            " order_detail o on p.ID=o.PRODUCT and nvl(o.deleted,0)!=1 and o.client_order=" +orderId.toString()+
-            " where nvl(p.deleted,0)!=1;"
+                    " select p.*,o.QUANTITY from product p left OUTER join " +
+                            " order_detail o on p.ID=o.PRODUCT and nvl(o.deleted,0)!=1 and o.client_order=" + orderId.toString() +
+                            " where nvl(p.deleted,0)!=1;"
             );
             //st.setString(1,client.getName());
         } catch (SQLException e) {
-            //TODO log;
+
         }
 
         ResultSet rs = null;
         try {
-            rs=st.executeQuery();
+            rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
                 ProductExtQuantity productExtQuantity = new ProductExtQuantity();
@@ -49,7 +53,7 @@ public class ProductExtQuantityService {
             //return administrator;
 
         } catch (SQLException e) {
-            //TODO log
+            log.debug("ProductExtQuantityService=" + e.getMessage());
         }
 
         return products;

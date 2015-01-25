@@ -11,6 +11,8 @@ import com.epam.model.Client;
 import com.epam.model.Product;
 import com.epam.service.ClientService;
 import com.epam.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,8 @@ import java.math.BigDecimal;
 
 
 public class SaveClientList extends AbstractCommand implements ActionCommand {
+    private static final Logger log = LoggerFactory.getLogger(SaveClientList.class);
+
     public Action getAction() {
         return action;
     }
@@ -32,11 +36,12 @@ public class SaveClientList extends AbstractCommand implements ActionCommand {
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
         String[] listMarkId = req.getParameterValues("MarkId");
         View view = new View(this.getAction().getView());
-        if (!ClientService.unMarkAllClientsbyAdministrator()){
+        if (!ClientService.unMarkAllClientsbyAdministrator()) {
             view.setName("errors/administrator");
             req.getSession().setAttribute("markidnotcorrect", " UnMark All Clients is not possible!=");
             return view;
-        };
+        }
+        ;
         for (String clientId : listMarkId) {
             System.out.println(" mark ID= " + clientId);
             Long id = Long.parseLong(clientId);
@@ -49,14 +54,14 @@ public class SaveClientList extends AbstractCommand implements ActionCommand {
             if (!h2ClientDAO.markClientbyAdministrator(client)) {
                 h2ClientDAO.closeConnection(connectionPool);
                 view.setName("errors/administrator");
-                req.getSession().setAttribute("markidnotcorrect", " MarkId not correct!="+id);
+                req.getSession().setAttribute("markidnotcorrect", " MarkId not correct!=" + id);
                 return view;
             }
             ;
             h2ClientDAO.closeConnection(connectionPool);
         }
         view.setRedirect(true);
-        System.out.println(" markClientbyAdministrator view.getName()=" + view.getName());
+        log.debug(" markClientbyAdministrator view.getName()=" + view.getName());
         return view;
     }
 

@@ -1,19 +1,19 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title> Login or Password incorrect </title>
-    <p><b>Request URI:</b> ${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p><br />
+
+    <p><b>Request URI:</b> ${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p><br/>
 </head>
 <body>
 
-<jsp:text>Login or Password incorrect! Please, Try again! </jsp:text>
+<jsp:text>Login or Password incorrect! Please, Try again!</jsp:text>
 ${loginnotcorrect}
 <br/>
 ${passwordnotcorrect}
 <br/>
 ${ header["host"] }
-<a> servletName=  ${pageContext.servletConfig.servletName} </a>
+<a> servletName= ${pageContext.servletConfig.servletName} </a>
 
 Request from ${pageContext.errorData.requestURI} is failed
 <br/>

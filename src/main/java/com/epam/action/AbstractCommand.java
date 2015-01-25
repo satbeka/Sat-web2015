@@ -1,8 +1,5 @@
 package com.epam.action;
 
-
-import com.epam.config.Action;
-
 public class AbstractCommand {
 
     public void setSuccessView(String successView) {

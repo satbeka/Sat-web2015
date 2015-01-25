@@ -1,12 +1,11 @@
 package com.epam.model;
 
 
-
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Comparator;
 
-public class Product implements Comparator<Product>{
+public class Product implements Comparator<Product> {
     private long id;
     private String name;
     private int active;

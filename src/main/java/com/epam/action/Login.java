@@ -9,12 +9,16 @@ import com.epam.dao.administrator.H2AdministratorDAO;
 import com.epam.dao.factory.DAOFactory;
 import com.epam.model.*;
 import com.epam.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class Login extends AbstractCommand implements ActionCommand{
+public class Login extends AbstractCommand implements ActionCommand {
+    private static final Logger log = LoggerFactory.getLogger(Login.class);
+
     public Action getAction() {
         return action;
     }
@@ -24,6 +28,7 @@ public class Login extends AbstractCommand implements ActionCommand{
     }
 
     private Action action;
+
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
         req.getSession().setAttribute("user33", "");
@@ -32,16 +37,18 @@ public class Login extends AbstractCommand implements ActionCommand{
         String password = req.getParameter("password");
         req.getSession().setAttribute("loginnotcorrect", null);
         req.getSession().setAttribute("passwordnotcorrect", null);
-        if (!Validator.isLoginCorrect(login)){
+        if (!Validator.isLoginCorrect(login)) {
             view.setName("errors/login");
             req.getSession().setAttribute("loginnotcorrect", " LOGIN not correct!");
             return view;
-        };
-        if (!Validator.isLoginCorrect(password)){
+        }
+        ;
+        if (!Validator.isLoginCorrect(password)) {
             view.setName("errors/login");
             req.getSession().setAttribute("passwordnotcorrect", " PASSWORD not correct!");
             return view;
-        };
+        }
+        ;
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         UserDAO userDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getUserDAO();
@@ -55,7 +62,7 @@ public class Login extends AbstractCommand implements ActionCommand{
         }
         ;
 
-        System.out.println("user.getClass().getSimpleName().toString()=" + user.getClass().getSimpleName().toString());
+        log.debug("user.getClass().getSimpleName().toString()=" + user.getClass().getSimpleName().toString());
         if (user.getClass().getSimpleName().equals("Administrator")) {
             String com = req.getParameter("command1");
             req.getSession().setAttribute("ROLE", "ADMINISTRATOR");
@@ -63,7 +70,7 @@ public class Login extends AbstractCommand implements ActionCommand{
             view.setRedirect(true);
             view.setName("administratorwhatdo");
             //view.setName("redirect");
-            System.out.println("administratorwhatdo view.getName()=" + view.getName());
+            log.debug("administratorwhatdo view.getName()=" + view.getName());
             return view;
         }
 
@@ -73,19 +80,27 @@ public class Login extends AbstractCommand implements ActionCommand{
             req.getSession().setAttribute("clientId", user.getId());
             view.setRedirect(true);
             view.setName("clientwhatdo");
-            System.out.println("client view.getName()="+view.getName());
-            System.out.println("client clientId="+ user.getId());
+            log.debug("client view.getName()=" + view.getName());
+            log.debug("client clientId=" + user.getId());
             req.getSession().setAttribute("clientId", user.getId());
             return view;
         }
         return view;
-    };
+    }
+
+    ;
 
 
-    public Login() {};
-    public Login(Action action){
-        this.action=action;
-    };
+    public Login() {
+    }
+
+    ;
+
+    public Login(Action action) {
+        this.action = action;
+    }
+
+    ;
 
 
 }
