@@ -10,7 +10,6 @@ public class Warehouse {
     private Long id;
 
     public Long getId() {
-        //lll
         return id;
     }
 
