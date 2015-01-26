@@ -13,13 +13,13 @@ public class ActionFactory {
     private static final Logger log = LoggerFactory.getLogger(ActionFactory.class);
     private Map<String, Action> actions;
 
-    /*
+/*
     public ArrayList<com.epam.config.Action> getCommandList() {
         return commandList;
     }
 
     private ArrayList<com.epam.config.Action> commandList;
-    */
+*/
 
     public ActionFactory(Eshop config) {
         actions = new HashMap<>();
