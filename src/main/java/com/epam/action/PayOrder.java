@@ -1,37 +1,37 @@
 package com.epam.action;
 
-import com.epam.config.Action;
-import com.epam.dao.client.ClientDAO;
-import com.epam.dao.client.H2ClientDAO;
 import com.epam.dao.factory.DAOFactory;
 import com.epam.dao.order.H2OrderDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.db.ConnectionPool;
-import com.epam.model.Client;
 import com.epam.model.Order;
-import com.epam.service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class PayOrder extends AbstractCommand implements ActionCommand {
+public class PayOrder extends AbstractAction implements Action {
     private static final Logger log = LoggerFactory.getLogger(Logout.class);
+    private com.epam.config.Action action;
 
-    public Action getAction() {
-        return action;
+    public PayOrder() {
     }
 
-    public void setAction(Action action) {
+    public PayOrder(com.epam.config.Action action) {
         this.action = action;
     }
 
-    private Action action;
+    public com.epam.config.Action getAction() {
+        return action;
+    }
+
+    public void setAction(com.epam.config.Action action) {
+        this.action = action;
+    }
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -47,7 +47,6 @@ public class PayOrder extends AbstractCommand implements ActionCommand {
                 orderId = Long.parseLong(m2.group().replace("=", ""));
                 log.debug("orderId: " + orderId.toString());
             }
-            ;
             if (i == 1) {
                 sumPaid = Double.valueOf(m2.group().replace("=", ""));
                 log.debug("sumPaid=" + sumPaid);
@@ -76,20 +75,6 @@ public class PayOrder extends AbstractCommand implements ActionCommand {
         log.debug(" PayOrder view.getName()=" + view.getName());
         return view;
     }
-
-    ;
-
-
-    public PayOrder() {
-    }
-
-    ;
-
-    public PayOrder(Action action) {
-        this.action = action;
-    }
-
-    ;
 
 
 }

@@ -2,6 +2,13 @@ package com.epam.action;
 
 
 public class View {
+    private String name;
+    private boolean isRedirect;
+
+    public View(String nameJsp) {
+        this.name = nameJsp;
+    }
+
     public String getName() {
         return name;
     }
@@ -10,18 +17,11 @@ public class View {
         this.name = name;
     }
 
-    private String name;
-    private boolean isRedirect;
-
     public boolean isRedirect() {
         return isRedirect;
     }
 
     public void setRedirect(boolean isRedirect) {
         this.isRedirect = isRedirect;
-    }
-
-    public View(String nameJsp) {
-        this.name = nameJsp;
     }
 }

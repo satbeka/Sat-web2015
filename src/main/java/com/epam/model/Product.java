@@ -3,9 +3,8 @@ package com.epam.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Comparator;
 
-public class Product implements Comparator<Product> {
+public class Product implements Comparable<Product> {
     private long id;
     private String name;
     private int active;
@@ -63,7 +62,7 @@ public class Product implements Comparator<Product> {
     }
 
     @Override
-    public int compare(Product o1, Product o2) {
-        return o1.insertDate.compareTo(o2.insertDate);
+    public int compareTo(Product o) {
+        return this.insertDate.compareTo(o.insertDate);
     }
 }

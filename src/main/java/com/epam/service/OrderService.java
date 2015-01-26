@@ -2,13 +2,7 @@ package com.epam.service;
 
 
 import com.epam.db.ConnectionPool;
-//import com.epam.dao.administrator.H2AdministratorDAO;
-import com.epam.dao.factory.DAOFactory;
-import com.epam.dao.product.H2ProductDAO;
-import com.epam.dao.product.ProductDAO;
-import com.epam.model.Client;
 import com.epam.model.Order;
-import com.epam.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,11 +27,12 @@ public class OrderService {
             st = cn.prepareStatement("select * from client_order where user =? and nvl(deleted,0)!=1 order by id;");
             st.setLong(1, clientId);
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         ResultSet rs = null;
         try {
+            assert st != null;
             rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
@@ -74,7 +69,7 @@ public class OrderService {
     }
 
     public static Long getMaxIdOrderByClient(Long clientId) {
-        Long id = Long.valueOf(0);
+        Long id = (long) 0;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection cn = connectionPool.takeConnection();
 
@@ -83,16 +78,19 @@ public class OrderService {
             st = cn.prepareStatement("select max (id) from client_order where user =? and nvl(deleted,0)!=1;");
             st.setLong(1, clientId);
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         ResultSet rs = null;
         try {
+            assert st != null;
             rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
-            while (rs.next()) {
-                id = rs.getLong(1);
-                return id;
+            if (rs.next()) {
+                do {
+                    id = rs.getLong(1);
+                    return id;
+                } while (rs.next());
             }
             //return administrator;
 

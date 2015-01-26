@@ -4,18 +4,15 @@ package com.epam.db;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.*;
-import java.util.Map;
-import java.util.Properties;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
-//import java.util.concurrent.PriorityBlockingQueue;
 
 
 public class ConnectionPool {
-    private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class);
     public static final int POOL_SIZE = 10;
+    private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class);
     private BlockingQueue<Connection> connectionQueue;
 
     private ConnectionPool() {
@@ -44,15 +41,11 @@ public class ConnectionPool {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            assert connection != null;
             connectionQueue.offer(connection);
 
         }
 
-    }
-
-
-    private static class ConnectionPoolHolder {
-        private static ConnectionPool instance = new ConnectionPool();
     }
 
     public static ConnectionPool getInstance() {
@@ -62,7 +55,6 @@ public class ConnectionPool {
 
         return ConnectionPoolHolder.instance;
     }
-
 
     public Connection takeConnection() {
         Connection connection = null;
@@ -88,21 +80,20 @@ public class ConnectionPool {
         try {
             if (!connection.isClosed()) {
                 if (!connectionQueue.offer(connection)) {
-
+                    log.debug("releaseConnection!");
                 }
             }
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
     }
 
-
     public void dispose() throws SQLException {
-        if (this != null) {
-            this.clearConnectionQueue();
-            //this.finalize();
+        this.clearConnectionQueue();
+    }
 
-        }
+    private static class ConnectionPoolHolder {
+        private static ConnectionPool instance = new ConnectionPool();
     }
 
 

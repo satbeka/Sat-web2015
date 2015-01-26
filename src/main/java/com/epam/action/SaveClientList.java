@@ -1,36 +1,36 @@
 package com.epam.action;
 
-import com.epam.config.Action;
 import com.epam.dao.client.ClientDAO;
 import com.epam.dao.client.H2ClientDAO;
 import com.epam.dao.factory.DAOFactory;
-import com.epam.dao.product.H2ProductDAO;
-import com.epam.dao.product.ProductDAO;
 import com.epam.db.ConnectionPool;
 import com.epam.model.Client;
-import com.epam.model.Product;
 import com.epam.service.ClientService;
-import com.epam.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
 
 
-public class SaveClientList extends AbstractCommand implements ActionCommand {
+public class SaveClientList extends AbstractAction implements Action {
     private static final Logger log = LoggerFactory.getLogger(SaveClientList.class);
+    private com.epam.config.Action action;
 
-    public Action getAction() {
-        return action;
+    public SaveClientList() {
     }
 
-    public void setAction(Action action) {
+    public SaveClientList(com.epam.config.Action action) {
         this.action = action;
     }
 
-    private Action action;
+    public com.epam.config.Action getAction() {
+        return action;
+    }
+
+    public void setAction(com.epam.config.Action action) {
+        this.action = action;
+    }
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -41,7 +41,6 @@ public class SaveClientList extends AbstractCommand implements ActionCommand {
             req.getSession().setAttribute("markidnotcorrect", " UnMark All Clients is not possible!=");
             return view;
         }
-        ;
         for (String clientId : listMarkId) {
             System.out.println(" mark ID= " + clientId);
             Long id = Long.parseLong(clientId);
@@ -57,27 +56,12 @@ public class SaveClientList extends AbstractCommand implements ActionCommand {
                 req.getSession().setAttribute("markidnotcorrect", " MarkId not correct!=" + id);
                 return view;
             }
-            ;
             h2ClientDAO.closeConnection(connectionPool);
         }
         view.setRedirect(true);
         log.debug(" markClientbyAdministrator view.getName()=" + view.getName());
         return view;
     }
-
-    ;
-
-
-    public SaveClientList() {
-    }
-
-    ;
-
-    public SaveClientList(Action action) {
-        this.action = action;
-    }
-
-    ;
 
 
 }

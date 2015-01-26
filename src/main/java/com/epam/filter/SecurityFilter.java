@@ -1,6 +1,5 @@
 package com.epam.filter;
 
-import com.epam.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +39,7 @@ public class SecurityFilter implements Filter {
         //System.out.println("seecur Attr role="+httpRequest.getAttributeNames().hashCode());
         if (!(role == null)) {
             log.debug("url=" + url);
-            if (!url.contains(role.toLowerCase()) & (url == "/logout")) {
+            if (!url.contains(role.toLowerCase()) & (!url.equals("/logout"))) {
                 throw new SecurityFilterException("Attention!!! Url is not contains role= " + role);
             }
             /*

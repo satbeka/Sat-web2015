@@ -1,8 +1,5 @@
 package com.epam.dao.factory;
 
-import com.epam.dao.user.H2UserDAO;
-import com.epam.dao.user.UserDAO;
-import com.epam.db.ConnectionPool;
 import com.epam.dao.address.AddressDAO;
 import com.epam.dao.administrator.AdministratorDAO;
 import com.epam.dao.administrator.H2AdministratorDAO;
@@ -12,11 +9,15 @@ import com.epam.dao.order.H2OrderDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.dao.product.H2ProductDAO;
 import com.epam.dao.product.ProductDAO;
+import com.epam.dao.user.H2UserDAO;
+import com.epam.dao.user.UserDAO;
+import com.epam.db.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class H2DAOFactory extends DAOFactory {
     private static final Logger log = LoggerFactory.getLogger(H2DAOFactory.class);
+    private ConnectionPool pool = null;
 
     public ConnectionPool getPool() {
         return pool;
@@ -25,8 +26,6 @@ public class H2DAOFactory extends DAOFactory {
     public void setPool(ConnectionPool pool) {
         this.pool = pool;
     }
-
-    private ConnectionPool pool = null;
     //private static Connection connection;
 
     /*
@@ -37,7 +36,6 @@ public class H2DAOFactory extends DAOFactory {
         return connection;
     }
     */
-
 
     @Override
     public AdministratorDAO getAdministratorDAO() {

@@ -1,14 +1,10 @@
 package com.epam.action;
 
-import com.epam.config.Action;
 import com.epam.dao.factory.DAOFactory;
 import com.epam.dao.product.H2ProductDAO;
 import com.epam.dao.product.ProductDAO;
-import com.epam.dao.user.H2UserDAO;
-import com.epam.dao.user.UserDAO;
 import com.epam.db.ConnectionPool;
 import com.epam.model.Product;
-import com.epam.model.User;
 import com.epam.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 
 
-public class SaveProduct extends AbstractCommand implements ActionCommand {
+public class SaveProduct extends AbstractAction implements Action {
     private static final Logger log = LoggerFactory.getLogger(SaveProduct.class);
+    private com.epam.config.Action action;
 
-    public Action getAction() {
-        return action;
+    public SaveProduct() {
     }
 
-    public void setAction(Action action) {
+    public SaveProduct(com.epam.config.Action action) {
         this.action = action;
     }
 
-    private Action action;
+    public com.epam.config.Action getAction() {
+        return action;
+    }
+
+    public void setAction(com.epam.config.Action action) {
+        this.action = action;
+    }
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -41,7 +43,6 @@ public class SaveProduct extends AbstractCommand implements ActionCommand {
             req.getSession().setAttribute("pricenotcorrect", " PRICE not correct!");
             return view;
         }
-        ;
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         ProductDAO productDAO = DAOFactory.getDAOFactory(DAOFactory.DAOType.H2).getProductDAO();
@@ -57,25 +58,10 @@ public class SaveProduct extends AbstractCommand implements ActionCommand {
             view.setName("errors/admin");
             return view;
         }
-        ;
         view.setRedirect(true);
         log.debug("saveproduct view.getName()=" + view.getName());
         return view;
     }
-
-    ;
-
-
-    public SaveProduct() {
-    }
-
-    ;
-
-    public SaveProduct(Action action) {
-        this.action = action;
-    }
-
-    ;
 
 
 }

@@ -36,8 +36,7 @@ public class H2UserDAO implements UserDAO {
         if (this.connection != null) {
             connectionPool.releaseConnection(this.connection);
         }
-        ;
-        return;
+
     }
 
     @Override
@@ -65,17 +64,18 @@ public class H2UserDAO implements UserDAO {
             st = cn.prepareStatement("select * from user where login =? and nvl(deleted,0)!=1;");
             st.setString(1, login);
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         ResultSet rs = null;
         Long role = null;
         try {
+            assert st != null;
             rs = st.executeQuery();
             rs.next();
             role = rs.getLong(3);
             if (role == 1) {
-                Administrator administrator = null;
+                Administrator administrator = new Administrator();
                 administrator.setId(rs.getLong(1));
                 administrator.setName(rs.getString(2));
                 administrator.setBirthDay(rs.getDate(8));
@@ -84,7 +84,7 @@ public class H2UserDAO implements UserDAO {
                 return administrator;
             }
 
-            Client client = null;
+            Client client = new Client();
             client.setId(rs.getLong(1));
             client.setName(rs.getString(2));
             client.setBirthDay(rs.getDate(8));
@@ -116,6 +116,7 @@ public class H2UserDAO implements UserDAO {
         ResultSet rs = null;
         Long role = null;
         try {
+            assert st != null;
             rs = st.executeQuery();
             rs.next();
             role = rs.getLong("ROLE");

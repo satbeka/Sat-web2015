@@ -4,15 +4,12 @@ import com.epam.db.ConnectionPool;
 import com.epam.model.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import com.epam.model.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-//import com.epam.model.Order;
 
 public class ClientService {
 
@@ -29,11 +26,12 @@ public class ClientService {
             st = cn.prepareStatement("select * from user where role=0 and nvl(deleted,0)!=1 order by id;");
             //st.setString(1,client.getName());
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         ResultSet rs = null;
         try {
+            assert st != null;
             rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
@@ -70,6 +68,7 @@ public class ClientService {
         }
 
         try {
+            assert st != null;
             int countRows = st.executeUpdate();
         } catch (SQLException e) {
             log.debug("ClientService=" + e.getMessage());
@@ -79,7 +78,7 @@ public class ClientService {
             cn.commit();
             return true;
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         return false;

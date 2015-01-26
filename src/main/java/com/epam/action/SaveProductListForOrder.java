@@ -1,16 +1,13 @@
 package com.epam.action;
 
-import com.epam.config.Action;
-import com.epam.dao.client.ClientDAO;
-import com.epam.dao.client.H2ClientDAO;
 import com.epam.dao.factory.DAOFactory;
 import com.epam.dao.order.H2OrderDAO;
 import com.epam.dao.order.OrderDAO;
 import com.epam.db.ConnectionPool;
 import com.epam.model.Client;
 import com.epam.model.Order;
-import com.epam.model.ProductExtQuantity;
-import com.epam.service.ClientService;
+import com.epam.model.Product;
+import com.epam.model.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,18 +15,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class SaveProductListForOrder extends AbstractCommand implements ActionCommand {
+public class SaveProductListForOrder extends AbstractAction implements Action {
     private static final Logger log = LoggerFactory.getLogger(SaveProductListForOrder.class);
+    private com.epam.config.Action action;
 
-    public Action getAction() {
-        return action;
+    public SaveProductListForOrder() {
     }
 
-    public void setAction(Action action) {
+    public SaveProductListForOrder(com.epam.config.Action action) {
         this.action = action;
     }
 
-    private Action action;
+    public com.epam.config.Action getAction() {
+        return action;
+    }
+
+    public void setAction(com.epam.config.Action action) {
+        this.action = action;
+    }
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -57,49 +60,32 @@ public class SaveProductListForOrder extends AbstractCommand implements ActionCo
             quantity = Integer.parseInt(quantityStr);
             log.debug("k=" + k);
             if (quantity > 0) {
-                ProductExtQuantity productExtQuantity = new ProductExtQuantity();
-                productExtQuantity.setQuantity(quantity);
+                Warehouse warehouse = new Warehouse();
+                Product product = new Product();
+                warehouse.setQuantity(quantity);
                 log.debug(productIdList[k].toString());
                 productId = Integer.parseInt(productIdList[k].toString());
-                productExtQuantity.setId(productId);
+                product.setId(productId);
+                warehouse.setProduct(product);
                 log.debug("productId=" + productId);
                 log.debug("quantity=" + quantity);
-                order.add(productExtQuantity);
+                order.add(warehouse);
             }
             k++;
         }
-
-
         View view = new View(this.getAction().getView());
         h2OrderDAO.setConnection(connectionPool);
         if (!h2OrderDAO.updateOrder(order)) {
             h2OrderDAO.closeConnection(connectionPool);
             view.setName("errors/client");
             return view;
-
-
         }
-        ;
         h2OrderDAO.closeConnection(connectionPool);
 
         view.setRedirect(true);
         log.debug(" SaveProductListForOrder view.getName()=" + view.getName());
         return view;
     }
-
-    ;
-
-
-    public SaveProductListForOrder() {
-    }
-
-    ;
-
-    public SaveProductListForOrder(Action action) {
-        this.action = action;
-    }
-
-    ;
 
 
 }

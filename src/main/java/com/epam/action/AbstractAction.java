@@ -1,6 +1,6 @@
 package com.epam.action;
 
-public class AbstractCommand {
+public class AbstractAction {
 
     public void setSuccessView(String successView) {
         this.successView = successView;

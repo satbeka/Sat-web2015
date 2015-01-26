@@ -33,8 +33,8 @@ ${user33}
             <tr>
 
                 <td><c:out value="${ elem.id }"/></td>
-                <td><c:out value="${ elem.name }"/></td>
-                <td><c:out value="${ elem.price }"/></td>
+                <td><c:out value="${ elem.product.name }"/></td>
+                <td><c:out value="${ elem.product.price }"/></td>
                 <td><fmt:message key="labelClientaddproduct.Quantity"/><input type="text" name="quantity"
                                                                               value="${ elem.quantity }">
                 </td>

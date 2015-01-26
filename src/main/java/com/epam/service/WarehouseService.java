@@ -1,9 +1,8 @@
 package com.epam.service;
 
-
 import com.epam.db.ConnectionPool;
 import com.epam.model.Product;
-import com.epam.model.ProductExtQuantity;
+import com.epam.model.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,14 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-//import com.epam.model.Order;
+public class WarehouseService {
 
-public class ProductExtQuantityService {
+    private static final Logger log = LoggerFactory.getLogger(WarehouseService.class);
 
-    private static final Logger log = LoggerFactory.getLogger(ProductExtQuantityService.class);
-
-    public static ArrayList<ProductExtQuantity> findProductsForOrder(Long orderId) {
-        ArrayList<ProductExtQuantity> products = new ArrayList<ProductExtQuantity>();
+    public static ArrayList<Warehouse> findProductsForOrder(Long orderId) {
+        ArrayList<Warehouse> products = new ArrayList<Warehouse>();
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection cn = connectionPool.takeConnection();
@@ -34,26 +31,30 @@ public class ProductExtQuantityService {
             );
             //st.setString(1,client.getName());
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         ResultSet rs = null;
         try {
+            assert st != null;
             rs = st.executeQuery();
             connectionPool.releaseConnection(cn);
             while (rs.next()) {
-                ProductExtQuantity productExtQuantity = new ProductExtQuantity();
-                productExtQuantity.setId(rs.getLong("ID"));
-                productExtQuantity.setName(rs.getString("NAME"));
-                productExtQuantity.setInsertDate(rs.getDate("INSERT_DATE"));
-                productExtQuantity.setPrice(rs.getBigDecimal("PRICE"));
-                productExtQuantity.setQuantity(rs.getInt("QUANTITY"));
-                products.add(productExtQuantity);
+                Product product = new Product();
+                Warehouse warehouse = new Warehouse();
+                product.setId(rs.getLong("ID"));
+                warehouse.setId(rs.getLong("ID"));
+                product.setName(rs.getString("NAME"));
+                product.setInsertDate(rs.getDate("INSERT_DATE"));
+                product.setPrice(rs.getBigDecimal("PRICE"));
+                warehouse.setProduct(product);
+                warehouse.setQuantity(rs.getInt("QUANTITY"));
+                products.add(warehouse);
             }
             //return administrator;
 
         } catch (SQLException e) {
-            log.debug("ProductExtQuantityService=" + e.getMessage());
+            log.debug("WarehouseService=" + e.getMessage());
         }
 
         return products;

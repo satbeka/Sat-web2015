@@ -13,11 +13,6 @@ import java.util.regex.Pattern;
 public class UrlRewriteFilter implements Filter {
     private static final Logger log = LoggerFactory.getLogger(UrlRewriteFilter.class);
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
     public static String pathWithoutId(String path, HttpServletRequest request) {
         //String path="do/clientaddproduct&444";
         if (path.contains("orderId=")) {
@@ -29,7 +24,7 @@ public class UrlRewriteFilter implements Filter {
                 log.debug("orderId: " + m2.group().replace("=", ""));
             }
             //String[] words = regexp.split(path);
-            String rez = path;
+            //String rez = path;
             /*
             for (String word : words) {
                 rez = word;
@@ -37,11 +32,15 @@ public class UrlRewriteFilter implements Filter {
             }
             System.out.println("rez=" + rez);
             */
-            return rez;
+            return path;
         }
         return path;
     }
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {

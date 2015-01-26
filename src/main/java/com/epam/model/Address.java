@@ -3,6 +3,9 @@ package com.epam.model;
 
 public class Address {
     private Long id;
+    private String city;
+    private String home;
+    private String flat;
 
     public Long getId() {
         return id;
@@ -35,10 +38,6 @@ public class Address {
     public void setFlat(String flat) {
         this.flat = flat;
     }
-
-    private String city;
-    private String home;
-    private String flat;
 
     @Override
     public String toString() {

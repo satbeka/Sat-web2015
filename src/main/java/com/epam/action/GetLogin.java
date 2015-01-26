@@ -1,28 +1,30 @@
 package com.epam.action;
 
 
-import com.epam.config.Action;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GetLogin extends AbstractCommand implements ActionCommand {
+public class GetLogin extends AbstractAction implements Action {
     private static final Logger log = LoggerFactory.getLogger(GetLogin.class);
-    private Action action;
+    private com.epam.config.Action action;
 
-    public Action getAction() {
+    public GetLogin() {
+    }
+
+    public GetLogin(com.epam.config.Action action) {
+        this.action = action;
+
+    }
+
+    public com.epam.config.Action getAction() {
         return action;
     }
 
-    public void setAction(Action action) {
+    public void setAction(com.epam.config.Action action) {
         this.action = action;
-    }
-
-    public GetLogin(Action action) {
-        this.action = action;
-
     }
 
     @Override

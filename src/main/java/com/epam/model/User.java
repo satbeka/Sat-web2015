@@ -1,23 +1,18 @@
 package com.epam.model;
 
 import java.sql.Date;
-//import java.util.Date;
-
 
 public abstract class User {
 
     private Long id;
     private String name;
-
-    public enum Role {ADMINISTRATOR, CLIENT, ALIEN}
-
-    ;
     private Address address;
     private String login;
     private String password;
     private String inn;
     private Date birthDay;
     private Date insertDate;
+    private Integer deleted;
 
     public Integer getDeleted() {
         return deleted;
@@ -27,13 +22,10 @@ public abstract class User {
         this.deleted = deleted;
     }
 
-    private Integer deleted;
-    //int blacklist;
-
-
     public Date getInsertDate() {
         return insertDate;
     }
+    //int blacklist;
 
     public void setInsertDate(Date insertDate) {
         this.insertDate = insertDate;
@@ -104,4 +96,6 @@ public abstract class User {
     public String toString() {
         return super.toString();
     }
+
+    public enum Role {ADMINISTRATOR, CLIENT, ALIEN}
 }

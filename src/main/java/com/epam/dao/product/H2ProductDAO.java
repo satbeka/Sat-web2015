@@ -14,12 +14,14 @@ public class H2ProductDAO implements ProductDAO {
     private static final Logger log = LoggerFactory.getLogger(ProductDAO.class);
     private Connection connection = null;
 
+    public H2ProductDAO() {
+    }
+
     // initialization
     public Connection setConnection(ConnectionPool connectionPool) {
         if (this.connection == null) {
             this.connection = connectionPool.takeConnection();
         }
-        ;
         return this.connection;
     }
 
@@ -27,11 +29,6 @@ public class H2ProductDAO implements ProductDAO {
         if (this.connection != null) {
             connectionPool.releaseConnection(this.connection);
         }
-        ;
-        return;
-    }
-
-    public H2ProductDAO() {
     }
 
     @Override
@@ -45,19 +42,20 @@ public class H2ProductDAO implements ProductDAO {
         try {
             cn.setAutoCommit(false);
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         Statement st = null;
         try {
             st = cn.createStatement();
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         ResultSet rs = null;
         long id = -1;
         try {
+            assert st != null;
             rs = st.executeQuery(SqlSeqID);
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -71,25 +69,26 @@ public class H2ProductDAO implements ProductDAO {
         try {
             st2 = cn.prepareStatement(SqlInsert2);
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         try {
+            assert st2 != null;
             st2.setLong(1, id);
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
 
         try {
             st2.setString(2, product.getName());
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
         try {
             st2.setInt(3, 1);  //active=1
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
         if (product.getInsertDate() == null) {
             //java.util.Date sysDate=new java.util.Date();
@@ -100,12 +99,12 @@ public class H2ProductDAO implements ProductDAO {
         try {
             st2.setDate(4, product.getInsertDate());
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
         try {
             st2.setBigDecimal(5, product.getPrice());
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         rs = null;
@@ -122,7 +121,7 @@ public class H2ProductDAO implements ProductDAO {
             cn.commit();
             return id;
         } catch (SQLException e) {
-
+            log.debug(e.toString());
         }
 
         return id;

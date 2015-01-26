@@ -1,8 +1,9 @@
 package com.epam.controller;
 
-import com.epam.action.ActionCommand;
-import com.epam.action.CommandFactory;
+import com.epam.action.Action;
+import com.epam.action.ActionFactory;
 import com.epam.action.View;
+import com.epam.config.Eshop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,13 +34,10 @@ public class FrontServlet extends HttpServlet {
         //System.out.println("service req.getContextPath()="+req.getContextPath());
         String meth = req.getMethod();
         String actionName = req.getMethod() + req.getPathInfo();
-        System.out.println("actionName=" + actionName);
-        log.debug("Requested action: " + actionName);
-        log.debug("current URI: " + req.getRequestURL());
-        log.debug("Referrer: " + req.getHeader("Referrer"));
+        log.debug("actionName=" + actionName);
+        log.debug("current URL= " + req.getRequestURL());
         //ConnectionPool connectionPool = ConnectionPool.getInstance();
         //System.out.println("FrontServlet  connectionPool = [" + connectionPool + "]");
-
         //User user=new Administrator();
         if (session.getAttribute("ROLE") != "ADMINISTRATOR") {
             log.debug("front role= " + session.getAttribute("ROLE"));
@@ -53,17 +51,18 @@ public class FrontServlet extends HttpServlet {
 
         //System.out.println("doGet 5577778887775999111");
         Object object = req.getServletContext().getAttribute("CommandFabric");
+        Eshop eshop = (Eshop) req.getServletContext().getAttribute("ESHOP");
         //System.out.println("doGet CommandFabric="+object);
 
-        CommandFactory commandFactory = (CommandFactory) req.getServletContext().getAttribute("CommandFabric");
-        ActionCommand actionCommand = commandFactory.defineCommand(method, path);
-        if (actionCommand == null) {
+        ActionFactory actionFactory = (ActionFactory) req.getServletContext().getAttribute("CommandFabric");
+        Action action = actionFactory.defineCommand(method, path, eshop);
+        if (action == null) {
             log.debug("Action not found");
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
             return;
         }
 
-        View view = actionCommand.execute(req, resp);
+        View view = action.execute(req, resp);
         log.debug("   /WEB-INF/view/" + view.getName().toString() + ".jsp");
         doForwardOrRedirect(view, req, resp);
         //return;

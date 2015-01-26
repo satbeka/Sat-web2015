@@ -8,9 +8,16 @@ import java.util.ArrayList;
 
 public class Order implements Serializable {
     private Long id;
+    private ArrayList<Warehouse> products;
+    private String number;
+    private BigDecimal sumPaid;
+    //private int quantity;
+    //private Product product;
+    private Client client;
+    private Date insertDate;
 
-    public boolean add(ProductExtQuantity productExtQuantity) {
-        return products.add(productExtQuantity);
+    public boolean add(Warehouse warehouse) {
+        return products.add(warehouse);
     }
 
     public void initProducts() {
@@ -32,20 +39,18 @@ public class Order implements Serializable {
         super.finalize();
     }
 
-    public boolean remove(ProductExtQuantity productExtQuantityRemove) {
-        for (ProductExtQuantity productExtQuantity : products) {
-            if (productExtQuantity.getId() == productExtQuantityRemove.getId()) {
-                return products.remove(productExtQuantity);
+    public boolean remove(Warehouse warehouseRemove) {
+        for (Warehouse warehouse : products) {
+            if (warehouse.getProduct().getId() == warehouseRemove.getProduct().getId()) {
+                return products.remove(warehouse);
             }
         }
         return false;
     }
 
-    public ArrayList<ProductExtQuantity> getProducts() {
+    public ArrayList<Warehouse> getProducts() {
         return products;
     }
-
-    private ArrayList<ProductExtQuantity> products;
 
     public Long getId() {
         return id;
@@ -79,9 +84,6 @@ public class Order implements Serializable {
         this.insertDate = date;
     }
 
-    private String number;
-    private BigDecimal sumPaid;
-
     public BigDecimal getSumPaid() {
         return sumPaid;
     }
@@ -89,11 +91,6 @@ public class Order implements Serializable {
     public void setSumPaid(BigDecimal sumPaid) {
         this.sumPaid = sumPaid;
     }
-
-    //private int quantity;
-    //private Product product;
-    private Client client;
-    private Date insertDate;
 
     @Override
     public int hashCode() {

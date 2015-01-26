@@ -2,9 +2,28 @@ package com.epam.model;
 
 import java.math.BigDecimal;
 
-public class ProductExtQuantity extends Product {
+public class Warehouse {
+    private Product product;
     private Integer quantity;
     private BigDecimal sum;
+    private BigDecimal sumPaid;
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public BigDecimal getSum() {
         return sum;
@@ -21,8 +40,6 @@ public class ProductExtQuantity extends Product {
     public void setSumPaid(BigDecimal sumPaid) {
         this.sumPaid = sumPaid;
     }
-
-    private BigDecimal sumPaid;
 
     public Integer getQuantity() {
         return quantity;
